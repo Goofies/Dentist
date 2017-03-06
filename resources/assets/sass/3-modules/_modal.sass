@@ -1,0 +1,145 @@
+.my-modal
+	position: fixed
+	width: 100vw
+	height: 100vh
+	top: 0
+	left: 0
+	z-index: 20
+	display: flex
+	justify-content: center
+	align-items: center
+	.my-modal-bg
+		position: absolute
+		background: fade-out($b900, 0.5)
+		width: 100%
+		height: 100%
+	.my-modal-wrapper
+		position: relative
+		max-height: 100vh
+		width: 80vw
+		background: $b50
+		.weekly-loader
+			position: absolute
+			top: 0
+			left: 0
+			height: 100%
+			width: 100%
+			background-color: rgba(1, 1, 1, 0.3)
+			display: flex
+			justify-content: center
+			align-items: center
+			z-index: 2
+			animation: getin 400ms ease-in-out forwards
+			display: none
+			img
+				height: 200px
+				animation: loading 2000ms ease-in-out infinite forwards
+			&.active
+				display: flex
+		.previous-week, .next-week
+			color: $b50
+			position: absolute
+			font-size: 100px
+			top: 50%
+			transform: translateY(-50%)
+			transition: 400ms ease-in-out
+			&:hover
+				cursor: pointer
+		.previous-week
+			left: -100px
+			text-shadow: 10px 0px 15px
+			&:hover
+				text-shadow: 5px 0px 15px
+		.next-week
+			right: -100px
+			text-shadow: -10px 0px 15px
+			&:hover
+				text-shadow: -5px 0px 15px
+		.my-modal-header
+			height: 10vh
+			display: flex
+			justify-content: center
+			align-items: center
+			.logo
+				width: 12.5%
+				display: flex
+				align-items: center
+				justify-content: center
+			.day-headers
+				display: flex
+				flex: 1
+				.day-header
+					display: flex
+					flex: 1
+					flex-direction: column
+					justify-content: center
+					align-items: center
+					.day-date
+					.day-title
+						padding: 5px 10px
+						font-weight: bold
+						&.clicked
+							background-color: $t500
+							color: $b50
+							border-radius: 10px
+		.my-modal-body
+			overflow-x: hidden
+			overflow-y: auto
+			height: 84vh
+			.weekly-view
+				display: flex
+				flex-wrap: wrap
+				justify-content: space-between
+				align-items: center
+				.week-days
+					display: flex
+					flex-direction: column
+					justify-content: center
+					align-items: center
+					width: 12.5%
+					&:last-child
+						.day-times
+							background-color: $b100
+							li
+								border-color: $b50
+					.day-date
+					.day-title
+						font-weight: bold
+					.day-times, .day-times ul
+						list-style: none
+						padding: 0
+						width: 100%
+						li
+							height: 3vh
+							min-height: 25px
+							position: relative
+							width: 100%
+							text-align: center
+							border-bottom: 1px solid $b100
+							border-left: 1px solid $b200
+							border-right: 1px solid $b300
+							box-sizing: border-box
+							&:hover
+								cursor: pointer
+								background: $b400
+								color: $b50
+							&.busy
+								cursor: not-allowed
+								background: $lg500
+								color: $b900
+							&.active
+								cursor: pointer
+								background: $b700
+								color: $b50
+					@for $i from 2 through 8
+						&:nth-child(#{$i})
+							li:hover
+								&:after
+									content: ''
+									position: absolute
+									width: 1200%
+									left: -115%*$i
+									height: 100%
+									background: rgba(1,1,1,0.1)
+									overflow: hidden
+

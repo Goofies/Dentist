@@ -1,0 +1,24 @@
+.information-box 
+	position: fixed
+	z-index: 50
+	text-align: center
+	background-color: $b500
+	color: $b50
+	padding: 15px 80px
+	top: 10px
+	left: 20px
+	font-weight: bold
+	border-radius: 10px
+	-webkit-box-shadow: 0px 1px 20px 1px $b800
+	-moz-box-shadow: 0px 1px 20px 1px $b800
+	box-shadow: 0px 1px 20px 1px $b800
+	transition: 400ms cubic-bezier(0.68, -0.55, 0.265, 1.55)
+	transform: translateX(-400px)
+	opacity: 0
+	&.active
+		transform: translateX(0px)
+		opacity: 1
+	&.success
+		background-color: $lg500
+	&.danger
+		background-color: $r500

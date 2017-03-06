@@ -1,0 +1,85 @@
+.header-group
+	background-color: $t500
+	color: $b50
+	box-shadow: 0px 1px 10px 0px black
+	position: relative
+	z-index: 10
+	.nav-ul 
+		padding: 0 20px
+		list-style: none
+		display: flex
+		justify-content: space-between
+		position: relative
+		.nav-item
+			transition: 300ms ease-in-out
+			padding: 10px
+			position: relative
+			border-left: 2px solid $t700
+			border-right: 2px solid $t700
+			display: flex
+			justify-content: center
+			align-items: center
+			z-index: 10
+			&:hover
+				border-left: 2px solid $t900
+				border-right: 2px solid $t900
+			.nav-title
+				width: 100%
+				font-weight: bold
+				letter-spacing: 1px
+				display: flex
+				justify-content: center
+				&:hover
+					cursor: pointer
+			.nav-drop
+				position: absolute
+				transform-origin: top center
+				transform: scaleY(0)
+				top: 100%
+				z-index: 10
+				background: $b50
+				transition: 400ms ease-in-out
+				-webkit-box-shadow: 0px 5px 20px 0px $b800
+				-moz-box-shadow: 0px 5px 20px 0px $b800
+				box-shadow: 0px 5px 20px 0px $b800
+				&.active
+					transform: scaleY(1)
+			&-1
+				.search-group
+					transition: 300ms ease-in-out
+					display: flex
+					flex-wrap: nowrap
+					overflow: hidden
+					width: 0vw
+					border-bottom: 2px solid $b50
+					input
+						width: 30vw
+					&.active
+						width: 30vw
+				.nav-drop
+					color: $b800
+					width: 100%
+					max-height: 40vh
+					overflow: auto
+					left: 0
+					.list-group
+						.list-group-item
+							transition: 100ms ease-in-out
+							position: relative
+							display: flex
+							padding: 5px
+							align-items: center
+							&:hover
+								cursor: pointer
+								background-color: $b100
+							&:active
+								background-color: $b200
+							img
+								height: 30px
+								margin-right: 5px
+								filter: grayscale(1)
+			&-2
+				.nav-drop
+					color: $b800
+					width: 30vw
+					right: 0

@@ -1,0 +1,97 @@
+.calendar-controller
+	display: flex
+	justify-content: space-between
+	align-items: center
+	font-size: 24px
+	margin-bottom: 10px
+	.material-icons
+		font-size: 48px
+		font-weight: bold
+		transition: 100ms ease-in-out
+		border-radius: 50%
+		&:hover
+			cursor: pointer
+			-webkit-box-shadow: 0px 5px 20px 0px $b800
+			-moz-box-shadow: 0px 5px 20px 0px $b800
+			box-shadow: 0px 5px 20px 0px $b800
+		&:nth-child(1)
+			&:hover
+				transform: translateX(5px)
+		&:nth-child(3)
+			&:hover
+				transform: translateX(-5px)
+		&:active
+			cursor: pointer
+			-webkit-box-shadow: 0px 0px 0 0px $b800
+			-moz-box-shadow: 0px 0px 0 0px $b800
+			box-shadow: 0px 0px 0 0px $b800
+		&:nth-child(1)
+			&:active
+				transform: translateX(0px)
+		&:nth-child(3)
+			&:active
+				transform: translateX(0px)
+	.date-picker
+		display: flex
+		justify-content: center
+		position: relative
+		z-index: 2
+		&:hover
+			cursor: pointer
+		.month
+			position: relative
+			width: 120px
+			text-align: right
+			.on-view
+			.months-list
+				width: 100%
+				font-size: 18px
+				transform-origin: top center
+				transition: 300ms ease-in-out
+				position: absolute
+				top: 100%
+				transform: scaleY(0)
+				background-color: fade-out($t50, 0.1)
+				overflow: auto
+				max-height: 30vh
+				li
+					&:hover
+						background-color: fade-out($t200, 0.1)
+					&.selected
+						background-color: fade-out($t100, 0.1)
+				&.active
+					transform: scaleY(1)
+		.year
+			position: absolute
+			font-size: 14px
+			transform: translateY(-50%)
+			left: 100%
+			font-style: italic
+			font-weight: bold
+			.on-view
+			.year-list
+				display: flex
+				transform-origin: left center
+				transition: 300ms ease-in-out
+				position: absolute
+				left: 110%
+				top: 0
+				transform: scaleX(0)
+				li
+					margin: 0px 2px
+					padding: 0px 5px
+					text-decoration: underline
+					&:hover
+						background-color: fade-out($t200, 0.1)
+					&.selected
+						background-color: fade-out($t100, 0.1)
+				&.active
+					transform: scaleX(1)
+.week-days
+	display: flex
+	justify-content: space-between
+	.week-day
+		width: calc(100% / 7)
+		text-align: center
+		font-weight: bold
+		margin-bottom: 5px
