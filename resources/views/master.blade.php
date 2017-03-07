@@ -12,3 +12,4 @@
 	    </div>
     </div>
 @include('partials.foot')
+<!-- changes -->
