@@ -11531,11 +11531,11 @@ var Component = __webpack_require__(5)(
   /* template */
   __webpack_require__(55),
   /* scopeId */
-  "data-v-0d151997",
+  "data-v-03056284",
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\Users\\lutfu\\projects\\Dentist\\resources\\assets\\js\\components\\buttonTemplate.vue"
+Component.options.__file = "C:\\Users\\kvati\\Projects\\projects\\calendar\\resources\\assets\\js\\components\\buttonTemplate.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] buttonTemplate.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -11546,9 +11546,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0d151997", Component.options)
+    hotAPI.createRecord("data-v-03056284", Component.options)
   } else {
-    hotAPI.reload("data-v-0d151997", Component.options)
+    hotAPI.reload("data-v-03056284", Component.options)
   }
 })()}
 
@@ -11561,19 +11561,19 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(60)
+__webpack_require__(61)
 
 var Component = __webpack_require__(5)(
   /* script */
   __webpack_require__(37),
   /* template */
-  __webpack_require__(56),
+  __webpack_require__(57),
   /* scopeId */
-  "data-v-4db2b52e",
+  "data-v-c240a13c",
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\Users\\lutfu\\projects\\Dentist\\resources\\assets\\js\\components\\inputTemplate.vue"
+Component.options.__file = "C:\\Users\\kvati\\Projects\\projects\\calendar\\resources\\assets\\js\\components\\inputTemplate.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] inputTemplate.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -11584,9 +11584,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4db2b52e", Component.options)
+    hotAPI.createRecord("data-v-c240a13c", Component.options)
   } else {
-    hotAPI.reload("data-v-4db2b52e", Component.options)
+    hotAPI.reload("data-v-c240a13c", Component.options)
   }
 })()}
 
@@ -14365,7 +14365,7 @@ exports = module.exports = __webpack_require__(3)();
 
 
 // module
-exports.push([module.i, "\n@charset \"UTF-8\";\n/* Lutfu Can (1:03 μμ): */\n.btn[data-v-0d151997] {\n  position: relative;\n  background-color: #CFD8DC;\n  font-weight: bold;\n  box-shadow: 0px 1px 2px 0px #000000;\n  border-radius: 2px;\n  -webkit-transition: 200ms ease-in-out;\n  transition: 200ms ease-in-out;\n  overflow: hidden;\n  padding: 0;\n  margin-top: 10px;\n}\n.btn .btn-click[data-v-0d151997] {\n    content: '';\n    position: absolute;\n    -webkit-transform: translateX(-50%) translateY(-50%);\n            transform: translateX(-50%) translateY(-50%);\n    border-radius: 50%;\n    background-color: rgba(1, 1, 1, 0.3);\n    opacity: 0;\n    z-index: 1;\n}\n.btn .btn-click.animate[data-v-0d151997] {\n      -webkit-animation: blouloup 500ms ease-in-out forwards;\n              animation: blouloup 500ms ease-in-out forwards;\n}\n.btn button[data-v-0d151997] {\n    position: relative;\n    display: inline-block;\n    padding: 6px 21px;\n    z-index: 2;\n    width: 100%;\n    height: 100%;\n    box-sizing: border-box;\n}\n.btn button[data-v-0d151997]:hover {\n      cursor: pointer;\n}\n.btn[data-v-0d151997]:hover {\n    box-shadow: 0px 2px 5px 0px #000000;\n}\n.btn[data-v-0d151997]:active {\n    box-shadow: 0px 1px 1px 0px #000000;\n}\n.btn.btn-success[data-v-0d151997] {\n    background-color: #009688;\n    color: #ECEFF1;\n}\n.btn.btn-danger[data-v-0d151997] {\n    background-color: #F44336;\n    color: #ECEFF1;\n}\n.btn.btn-block[data-v-0d151997] {\n    width: 100%;\n}\n@-webkit-keyframes blouloup {\n0% {\n    width: 0%;\n    padding-bottom: 0%;\n    opacity: 1;\n}\n100% {\n    width: 300%;\n    padding-bottom: 300%;\n    opacity: 0;\n}\n}\n@keyframes blouloup {\n0% {\n    width: 0%;\n    padding-bottom: 0%;\n    opacity: 1;\n}\n100% {\n    width: 300%;\n    padding-bottom: 300%;\n    opacity: 0;\n}\n}\n", ""]);
+exports.push([module.i, "\n@charset \"UTF-8\";\n/* Lutfu Can (1:03 μμ): */\n.btn[data-v-03056284] {\n  position: relative;\n  background-color: #CFD8DC;\n  font-weight: bold;\n  box-shadow: 0px 1px 2px 0px #000000;\n  border-radius: 2px;\n  -webkit-transition: 200ms ease-in-out;\n  transition: 200ms ease-in-out;\n  overflow: hidden;\n  padding: 0;\n  margin-top: 10px;\n}\n.btn .btn-click[data-v-03056284] {\n    content: '';\n    position: absolute;\n    -webkit-transform: translateX(-50%) translateY(-50%);\n            transform: translateX(-50%) translateY(-50%);\n    border-radius: 50%;\n    background-color: rgba(1, 1, 1, 0.3);\n    opacity: 0;\n    z-index: 1;\n}\n.btn .btn-click.animate[data-v-03056284] {\n      -webkit-animation: blouloup 500ms ease-in-out forwards;\n              animation: blouloup 500ms ease-in-out forwards;\n}\n.btn button[data-v-03056284] {\n    position: relative;\n    display: inline-block;\n    padding: 6px 21px;\n    z-index: 2;\n    width: 100%;\n    height: 100%;\n    box-sizing: border-box;\n}\n.btn button[data-v-03056284]:hover {\n      cursor: pointer;\n}\n.btn[data-v-03056284]:hover {\n    box-shadow: 0px 2px 5px 0px #000000;\n}\n.btn[data-v-03056284]:active {\n    box-shadow: 0px 1px 1px 0px #000000;\n}\n.btn.btn-success[data-v-03056284] {\n    background-color: #009688;\n    color: #ECEFF1;\n}\n.btn.btn-danger[data-v-03056284] {\n    background-color: #F44336;\n    color: #ECEFF1;\n}\n.btn.btn-block[data-v-03056284] {\n    width: 100%;\n}\n@-webkit-keyframes blouloup {\n0% {\n    width: 0%;\n    padding-bottom: 0%;\n    opacity: 1;\n}\n100% {\n    width: 300%;\n    padding-bottom: 300%;\n    opacity: 0;\n}\n}\n@keyframes blouloup {\n0% {\n    width: 0%;\n    padding-bottom: 0%;\n    opacity: 1;\n}\n100% {\n    width: 300%;\n    padding-bottom: 300%;\n    opacity: 0;\n}\n}\n", ""]);
 
 // exports
 
@@ -14379,7 +14379,7 @@ exports = module.exports = __webpack_require__(3)();
 
 
 // module
-exports.push([module.i, "\n.form-control[data-v-4db2b52e] {\n  padding: 10px 0px;\n}\n.form-control .form-group[data-v-4db2b52e] {\n    position: relative;\n    width: 100%;\n    border-bottom: 2px solid #B0BEC5;\n    margin-top: 16px;\n}\n.form-control .form-group[data-v-4db2b52e]:after {\n      content: '';\n      position: absolute;\n      height: 2px;\n      width: 0%;\n      bottom: -2px;\n      left: 0;\n      background-color: #00695C;\n      box-shadow: 0px 0px 10px 0px #00695C;\n      -webkit-transition: 400ms ease-in-out;\n      transition: 400ms ease-in-out;\n}\n.form-control .form-group .form-label[data-v-4db2b52e] {\n      position: absolute;\n      left: 5px;\n      z-index: -1;\n      color: #B0BEC5;\n      letter-spacing: 2.5px;\n      -webkit-transition: 400ms ease-in-out;\n      transition: 400ms ease-in-out;\n}\n.form-control .form-group .form-label.active[data-v-4db2b52e] {\n        -webkit-transform: translateY(-100%);\n                transform: translateY(-100%);\n        color: #00695C;\n        letter-spacing: 0px;\n        font-size: 14px;\n}\n.form-control .form-group .form-input[data-v-4db2b52e] {\n      padding: 5px;\n      width: 100%;\n      box-sizing: border-box;\n}\n.form-control .form-group .form-error[data-v-4db2b52e] {\n      position: absolute;\n      bottom: 0;\n      -webkit-transform: translateY(100%);\n              transform: translateY(100%);\n      font-size: 14px;\n      color: #D32F2F;\n      -webkit-transition: 400ms ease-in-out;\n      transition: 400ms ease-in-out;\n      opacity: 0;\n}\n.form-control .form-group.active[data-v-4db2b52e]:after {\n      width: 100%;\n      box-shadow: 0px 0px 10px 0px #00695C;\n}\n.form-control .form-group.haserror[data-v-4db2b52e]:after {\n      width: 100%;\n      background-color: #D32F2F;\n      box-shadow: 0px 0px 10px 0px #D32F2F;\n}\n.form-control .form-group.haserror .form-error[data-v-4db2b52e] {\n      opacity: 1;\n}\n", ""]);
+exports.push([module.i, "\n.timeline-wrapper[data-v-76fca633] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  position: relative;\n  margin: 40px 40px;\n  z-index: 5;\n}\n.timeline-wrapper .timeline[data-v-76fca633] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    width: 100%;\n    border: 2px dashed #009688;\n}\n.timeline-wrapper .timeline .time-bubble-wrapper[data-v-76fca633] {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-pack: center;\n          -ms-flex-pack: center;\n              justify-content: center;\n      -webkit-box-align: center;\n          -ms-flex-align: center;\n              align-items: center;\n      position: absolute;\n      top: 12px;\n      -webkit-transform-origin: 50% -10px;\n              transform-origin: 50% -10px;\n      left: 0%;\n      -webkit-transform: translateX(-50%);\n              transform: translateX(-50%);\n      z-index: 1;\n}\n.timeline-wrapper .timeline .time-bubble-wrapper .time-bubble[data-v-76fca633] {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: center;\n            -ms-flex-pack: center;\n                justify-content: center;\n        -webkit-box-align: center;\n            -ms-flex-align: center;\n                align-items: center;\n        height: 40px;\n        width: 40px;\n        position: relative;\n        border: 1px solid #37474F;\n        background: #607D8B;\n        color: #ECEFF1;\n        border-radius: 0% 50% 50% 50%;\n        -webkit-transform: rotate(45deg);\n                transform: rotate(45deg);\n}\n.timeline-wrapper .timeline .time-bubble-wrapper .time-bubble .material-icons[data-v-76fca633] {\n          -webkit-transform: rotate(-45deg);\n                  transform: rotate(-45deg);\n}\n.timeline-wrapper .timeline .day-start[data-v-76fca633], .timeline-wrapper .timeline .day-end[data-v-76fca633] {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-pack: center;\n          -ms-flex-pack: center;\n              justify-content: center;\n      -webkit-box-align: center;\n          -ms-flex-align: center;\n              align-items: center;\n      position: absolute;\n      left: 0;\n      -webkit-transform: translateX(-50%);\n              transform: translateX(-50%);\n      height: 10px;\n      width: 10px;\n      border-radius: 50%;\n      background: #ECEFF1;\n      border: 3px solid #009688;\n}\n.timeline-wrapper .timeline .day-end[data-v-76fca633] {\n      left: 100%;\n}\n.timeline-wrapper .timeline .time-dot .moment[data-v-76fca633] {\n      position: absolute;\n      bottom: 100%;\n}\n.timeline-wrapper .timeline .appointment[data-v-76fca633] {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-pack: center;\n          -ms-flex-pack: center;\n              justify-content: center;\n      -webkit-box-align: center;\n          -ms-flex-align: center;\n              align-items: center;\n      position: absolute;\n      left: 30%;\n      border: 2px solid #009688;\n}\n.timeline-wrapper .timeline .appointment .starting-at[data-v-76fca633], .timeline-wrapper .timeline .appointment .ending-at[data-v-76fca633] {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: center;\n            -ms-flex-pack: center;\n                justify-content: center;\n        -webkit-box-align: center;\n            -ms-flex-align: center;\n                align-items: center;\n        position: absolute;\n        left: 0;\n        -webkit-transform: translateX(-50%);\n                transform: translateX(-50%);\n        height: 10px;\n        width: 10px;\n        border-radius: 50%;\n        background: #ECEFF1;\n        border: 3px solid #009688;\n}\n.timeline-wrapper .timeline .appointment .starting-at .moment[data-v-76fca633], .timeline-wrapper .timeline .appointment .ending-at .moment[data-v-76fca633] {\n          position: absolute;\n          bottom: 100%;\n}\n.timeline-wrapper .timeline .appointment .ending-at[data-v-76fca633] {\n        left: 100%;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper[data-v-76fca633] {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: center;\n            -ms-flex-pack: center;\n                justify-content: center;\n        -webkit-box-align: center;\n            -ms-flex-align: center;\n                align-items: center;\n        position: absolute;\n        top: 10px;\n        -webkit-transform-origin: 50% -10px;\n                transform-origin: 50% -10px;\n        left: 0%;\n        -webkit-transform: translateX(-50%);\n                transform: translateX(-50%);\n        z-index: 1;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-bubble[data-v-76fca633] {\n          display: -webkit-box;\n          display: -ms-flexbox;\n          display: flex;\n          -webkit-box-pack: center;\n              -ms-flex-pack: center;\n                  justify-content: center;\n          -webkit-box-align: center;\n              -ms-flex-align: center;\n                  align-items: center;\n          height: 40px;\n          width: 40px;\n          position: relative;\n          border: 1px solid #009688;\n          background: #E0F2F1;\n          border-radius: 0% 50% 50% 50%;\n          -webkit-transform: rotate(45deg);\n                  transform: rotate(45deg);\n          -webkit-transition: 300ms ease-in-out;\n          transition: 300ms ease-in-out;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-bubble[data-v-76fca633]:hover {\n            cursor: pointer;\n            background: #009688;\n            color: #ECEFF1;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-bubble .patient-name[data-v-76fca633] {\n            font-size: 24px;\n            font-weight: bold;\n            -webkit-transform: rotate(-45deg);\n                    transform: rotate(-45deg);\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info[data-v-76fca633] {\n          position: absolute;\n          width: 300px;\n          background: #B2DFDB;\n          left: 120%;\n          top: 20%;\n          border-radius: 5px;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info .info-close[data-v-76fca633] {\n            position: absolute;\n            left: 100%;\n            color: #607D8B;\n            -webkit-transition: 300ms ease-in-out;\n            transition: 300ms ease-in-out;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info .info-close[data-v-76fca633]:hover {\n              cursor: pointer;\n              color: #009688;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info .info-header[data-v-76fca633] {\n            display: -webkit-box;\n            display: -ms-flexbox;\n            display: flex;\n            -webkit-box-pack: justify;\n                -ms-flex-pack: justify;\n                    justify-content: space-between;\n            -webkit-box-align: center;\n                -ms-flex-align: center;\n                    align-items: center;\n            background: #009688;\n            border-radius: 5px 5px 0px 0px;\n            padding: 2px 5px;\n            color: #ECEFF1;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info .info-header .info-name[data-v-76fca633] {\n              font-weight: bold;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info .info-header .info-operation[data-v-76fca633] {\n              font-size: 12px;\n              font-weight: lighter;\n              font-style: italic;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info .info-body .note-date[data-v-76fca633] {\n            display: -webkit-box;\n            display: -ms-flexbox;\n            display: flex;\n            -webkit-box-align: center;\n                -ms-flex-align: center;\n                    align-items: center;\n            -webkit-box-pack: center;\n                -ms-flex-pack: center;\n                    justify-content: center;\n            position: relative;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info .info-body .note-date span[data-v-76fca633] {\n              background-color: #B2DFDB;\n              z-index: 2;\n              padding: 0px 10px;\n              font-size: 14px;\n              font-weight: lighter;\n              font-style: italic;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info .info-body .note-date[data-v-76fca633]:before {\n              content: '';\n              position: absolute;\n              height: 1px;\n              border-bottom: 1px solid #607D8B;\n              left: 0;\n              right: 0;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info .info-body .info-note[data-v-76fca633] {\n            border-bottom: 1px solid #607D8B;\n            padding: 0px 4px 7px;\n}\n", ""]);
 
 // exports
 
@@ -14393,7 +14393,7 @@ exports = module.exports = __webpack_require__(3)();
 
 
 // module
-exports.push([module.i, "\n.timeline-wrapper[data-v-cad07068] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  position: relative;\n  margin: 40px 40px;\n  z-index: 5;\n}\n.timeline-wrapper .timeline[data-v-cad07068] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    width: 100%;\n    border: 2px dashed #009688;\n}\n.timeline-wrapper .timeline .time-bubble-wrapper[data-v-cad07068] {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-pack: center;\n          -ms-flex-pack: center;\n              justify-content: center;\n      -webkit-box-align: center;\n          -ms-flex-align: center;\n              align-items: center;\n      position: absolute;\n      top: 12px;\n      -webkit-transform-origin: 50% -10px;\n              transform-origin: 50% -10px;\n      left: 0%;\n      -webkit-transform: translateX(-50%);\n              transform: translateX(-50%);\n      z-index: 1;\n}\n.timeline-wrapper .timeline .time-bubble-wrapper .time-bubble[data-v-cad07068] {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: center;\n            -ms-flex-pack: center;\n                justify-content: center;\n        -webkit-box-align: center;\n            -ms-flex-align: center;\n                align-items: center;\n        height: 40px;\n        width: 40px;\n        position: relative;\n        border: 1px solid #37474F;\n        background: #607D8B;\n        color: #ECEFF1;\n        border-radius: 0% 50% 50% 50%;\n        -webkit-transform: rotate(45deg);\n                transform: rotate(45deg);\n}\n.timeline-wrapper .timeline .time-bubble-wrapper .time-bubble .material-icons[data-v-cad07068] {\n          -webkit-transform: rotate(-45deg);\n                  transform: rotate(-45deg);\n}\n.timeline-wrapper .timeline .day-start[data-v-cad07068], .timeline-wrapper .timeline .day-end[data-v-cad07068] {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-pack: center;\n          -ms-flex-pack: center;\n              justify-content: center;\n      -webkit-box-align: center;\n          -ms-flex-align: center;\n              align-items: center;\n      position: absolute;\n      left: 0;\n      -webkit-transform: translateX(-50%);\n              transform: translateX(-50%);\n      height: 10px;\n      width: 10px;\n      border-radius: 50%;\n      background: #ECEFF1;\n      border: 3px solid #009688;\n}\n.timeline-wrapper .timeline .day-end[data-v-cad07068] {\n      left: 100%;\n}\n.timeline-wrapper .timeline .time-dot .moment[data-v-cad07068] {\n      position: absolute;\n      bottom: 100%;\n}\n.timeline-wrapper .timeline .appointment[data-v-cad07068] {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-pack: center;\n          -ms-flex-pack: center;\n              justify-content: center;\n      -webkit-box-align: center;\n          -ms-flex-align: center;\n              align-items: center;\n      position: absolute;\n      left: 30%;\n      border: 2px solid #009688;\n}\n.timeline-wrapper .timeline .appointment .starting-at[data-v-cad07068], .timeline-wrapper .timeline .appointment .ending-at[data-v-cad07068] {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: center;\n            -ms-flex-pack: center;\n                justify-content: center;\n        -webkit-box-align: center;\n            -ms-flex-align: center;\n                align-items: center;\n        position: absolute;\n        left: 0;\n        -webkit-transform: translateX(-50%);\n                transform: translateX(-50%);\n        height: 10px;\n        width: 10px;\n        border-radius: 50%;\n        background: #ECEFF1;\n        border: 3px solid #009688;\n}\n.timeline-wrapper .timeline .appointment .starting-at .moment[data-v-cad07068], .timeline-wrapper .timeline .appointment .ending-at .moment[data-v-cad07068] {\n          position: absolute;\n          bottom: 100%;\n}\n.timeline-wrapper .timeline .appointment .ending-at[data-v-cad07068] {\n        left: 100%;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper[data-v-cad07068] {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: center;\n            -ms-flex-pack: center;\n                justify-content: center;\n        -webkit-box-align: center;\n            -ms-flex-align: center;\n                align-items: center;\n        position: absolute;\n        top: 10px;\n        -webkit-transform-origin: 50% -10px;\n                transform-origin: 50% -10px;\n        left: 0%;\n        -webkit-transform: translateX(-50%);\n                transform: translateX(-50%);\n        z-index: 1;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-bubble[data-v-cad07068] {\n          display: -webkit-box;\n          display: -ms-flexbox;\n          display: flex;\n          -webkit-box-pack: center;\n              -ms-flex-pack: center;\n                  justify-content: center;\n          -webkit-box-align: center;\n              -ms-flex-align: center;\n                  align-items: center;\n          height: 40px;\n          width: 40px;\n          position: relative;\n          border: 1px solid #009688;\n          background: #E0F2F1;\n          border-radius: 0% 50% 50% 50%;\n          -webkit-transform: rotate(45deg);\n                  transform: rotate(45deg);\n          -webkit-transition: 300ms ease-in-out;\n          transition: 300ms ease-in-out;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-bubble[data-v-cad07068]:hover {\n            cursor: pointer;\n            background: #009688;\n            color: #ECEFF1;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-bubble .patient-name[data-v-cad07068] {\n            font-size: 24px;\n            font-weight: bold;\n            -webkit-transform: rotate(-45deg);\n                    transform: rotate(-45deg);\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info[data-v-cad07068] {\n          position: absolute;\n          width: 300px;\n          background: #B2DFDB;\n          left: 120%;\n          top: 20%;\n          border-radius: 5px;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info .info-close[data-v-cad07068] {\n            position: absolute;\n            left: 100%;\n            color: #607D8B;\n            -webkit-transition: 300ms ease-in-out;\n            transition: 300ms ease-in-out;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info .info-close[data-v-cad07068]:hover {\n              cursor: pointer;\n              color: #009688;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info .info-header[data-v-cad07068] {\n            display: -webkit-box;\n            display: -ms-flexbox;\n            display: flex;\n            -webkit-box-pack: justify;\n                -ms-flex-pack: justify;\n                    justify-content: space-between;\n            -webkit-box-align: center;\n                -ms-flex-align: center;\n                    align-items: center;\n            background: #009688;\n            border-radius: 5px 5px 0px 0px;\n            padding: 2px 5px;\n            color: #ECEFF1;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info .info-header .info-name[data-v-cad07068] {\n              font-weight: bold;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info .info-header .info-operation[data-v-cad07068] {\n              font-size: 12px;\n              font-weight: lighter;\n              font-style: italic;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info .info-body .note-date[data-v-cad07068] {\n            display: -webkit-box;\n            display: -ms-flexbox;\n            display: flex;\n            -webkit-box-align: center;\n                -ms-flex-align: center;\n                    align-items: center;\n            -webkit-box-pack: center;\n                -ms-flex-pack: center;\n                    justify-content: center;\n            position: relative;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info .info-body .note-date span[data-v-cad07068] {\n              background-color: #B2DFDB;\n              z-index: 2;\n              padding: 0px 10px;\n              font-size: 14px;\n              font-weight: lighter;\n              font-style: italic;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info .info-body .note-date[data-v-cad07068]:before {\n              content: '';\n              position: absolute;\n              height: 1px;\n              border-bottom: 1px solid #607D8B;\n              left: 0;\n              right: 0;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info .info-body .info-note[data-v-cad07068] {\n            border-bottom: 1px solid #607D8B;\n            padding: 0px 4px 7px;\n}\n", ""]);
+exports.push([module.i, "\n.form-control[data-v-c240a13c] {\n  padding: 10px 0px;\n}\n.form-control .form-group[data-v-c240a13c] {\n    position: relative;\n    width: 100%;\n    border-bottom: 2px solid #B0BEC5;\n    margin-top: 16px;\n}\n.form-control .form-group[data-v-c240a13c]:after {\n      content: '';\n      position: absolute;\n      height: 2px;\n      width: 0%;\n      bottom: -2px;\n      left: 0;\n      background-color: #00695C;\n      box-shadow: 0px 0px 10px 0px #00695C;\n      -webkit-transition: 400ms ease-in-out;\n      transition: 400ms ease-in-out;\n}\n.form-control .form-group .form-label[data-v-c240a13c] {\n      position: absolute;\n      left: 5px;\n      z-index: -1;\n      color: #B0BEC5;\n      letter-spacing: 2.5px;\n      -webkit-transition: 400ms ease-in-out;\n      transition: 400ms ease-in-out;\n}\n.form-control .form-group .form-label.active[data-v-c240a13c] {\n        -webkit-transform: translateY(-100%);\n                transform: translateY(-100%);\n        color: #00695C;\n        letter-spacing: 0px;\n        font-size: 14px;\n}\n.form-control .form-group .form-input[data-v-c240a13c] {\n      padding: 5px;\n      width: 100%;\n      box-sizing: border-box;\n}\n.form-control .form-group .form-error[data-v-c240a13c] {\n      position: absolute;\n      bottom: 0;\n      -webkit-transform: translateY(100%);\n              transform: translateY(100%);\n      font-size: 14px;\n      color: #D32F2F;\n      -webkit-transition: 400ms ease-in-out;\n      transition: 400ms ease-in-out;\n      opacity: 0;\n}\n.form-control .form-group.active[data-v-c240a13c]:after {\n      width: 100%;\n      box-shadow: 0px 0px 10px 0px #00695C;\n}\n.form-control .form-group.haserror[data-v-c240a13c]:after {\n      width: 100%;\n      background-color: #D32F2F;\n      box-shadow: 0px 0px 10px 0px #D32F2F;\n}\n.form-control .form-group.haserror .form-error[data-v-c240a13c] {\n      opacity: 1;\n}\n", ""]);
 
 // exports
 
@@ -31496,19 +31496,19 @@ exports.push([module.i, "\n.timeline-wrapper[data-v-cad07068] {\n  display: -web
 
 
 /* styles */
-__webpack_require__(61)
+__webpack_require__(60)
 
 var Component = __webpack_require__(5)(
   /* script */
   __webpack_require__(38),
   /* template */
-  __webpack_require__(57),
+  __webpack_require__(56),
   /* scopeId */
-  "data-v-cad07068",
+  "data-v-76fca633",
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\Users\\lutfu\\projects\\Dentist\\resources\\assets\\js\\components\\timeline.vue"
+Component.options.__file = "C:\\Users\\kvati\\Projects\\projects\\calendar\\resources\\assets\\js\\components\\timeline.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] timeline.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -31519,9 +31519,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-cad07068", Component.options)
+    hotAPI.createRecord("data-v-76fca633", Component.options)
   } else {
-    hotAPI.reload("data-v-cad07068", Component.options)
+    hotAPI.reload("data-v-76fca633", Component.options)
   }
 })()}
 
@@ -31555,12 +31555,115 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-0d151997", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-03056284", module.exports)
   }
 }
 
 /***/ }),
 /* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "timeline-wrapper"
+  }, [_c('span', {
+    staticClass: "timeline"
+  }, [_c('span', {
+    staticClass: "time-bubble-wrapper",
+    style: ({
+      left: _vm.clockPosition + '%'
+    })
+  }, [_vm._m(0)]), _vm._v(" "), _c('span', {
+    staticClass: "time-dot day-start"
+  }, [_c('span', {
+    staticClass: "moment"
+  }, [_vm._v("\n\t\t\t\t" + _vm._s(_vm._f("getHM")(_vm.startingTime)) + "\n\t\t\t")])]), _vm._v(" "), _vm._l((_vm.appointments), function(appointment) {
+    return _c('span', {
+      staticClass: "appointment",
+      class: _vm.statusCheck(appointment),
+      style: (_vm.appointmentPosition(appointment))
+    }, [_c('span', {
+      staticClass: "starting-at"
+    }, [_c('span', {
+      staticClass: "moment"
+    }, [_vm._v("\n\t\t\t\t\t" + _vm._s(_vm._f("getHM")(appointment.starting_at)) + "\n\t\t\t\t")])]), _vm._v(" "), _c('span', {
+      staticClass: "bubble-wrapper"
+    }, [_c('span', {
+      staticClass: "patient-bubble",
+      on: {
+        "click": function($event) {
+          _vm.noteWindow.display = appointment.id
+        }
+      }
+    }, [_c('span', {
+      staticClass: "patient-name"
+    }, [_vm._v("\n\t\t\t\t\t\t" + _vm._s(_vm._f("getFirstLetter")(appointment.patient.name)) + "\n\t\t\t\t\t")])]), _vm._v(" "), (_vm.displayAppointment(appointment)) ? _c('div', {
+      staticClass: "patient-info"
+    }, [_c('span', {
+      staticClass: "info-close",
+      on: {
+        "click": function($event) {
+          _vm.noteWindow.display = false
+        }
+      }
+    }, [_c('i', {
+      staticClass: "material-icons"
+    }, [_vm._v("")])]), _vm._v(" "), _c('div', {
+      staticClass: "info-header"
+    }, [_c('span', {
+      staticClass: "info-name"
+    }, [_vm._v(_vm._s(appointment.patient.name) + "  " + _vm._s(appointment.patient.lastname))]), _vm._v(" "), (appointment.operation_name) ? _c('span', {
+      staticClass: "info-operation"
+    }, [_vm._v(_vm._s(appointment.operation_name))]) : _vm._e()]), _vm._v(" "), _vm._m(1, true), _vm._v(" "), _c('div', {
+      staticClass: "info-new-note"
+    }, [_c('form', {
+      attrs: {
+        "action": ""
+      }
+    }, [_c('input-template', {
+      attrs: {
+        "data": _vm.noteWindow.note
+      }
+    }), _vm._v(" "), _c('button-template', {
+      attrs: {
+        "Blabel": "Add Note",
+        "Bclass": "btn-success btn-block"
+      }
+    })], 1)])]) : _vm._e()]), _vm._v(" "), _c('span', {
+      staticClass: "ending-at"
+    }, [_c('span', {
+      staticClass: "moment"
+    }, [_vm._v("\n\t\t\t\t\t" + _vm._s(_vm._f("getHM")(appointment.ending_at)) + "\n\t\t\t\t")])])])
+  }), _vm._v(" "), _c('span', {
+    staticClass: "time-dot day-end"
+  }, [_c('span', {
+    staticClass: "moment"
+  }, [_vm._v("\n\t\t\t\t" + _vm._s(_vm._f("getHM")(_vm.endingTime)) + "\n\t\t\t")])])], 2)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "time-bubble"
+  }, [_c('i', {
+    staticClass: "material-icons"
+  }, [_vm._v("")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "info-body"
+  }, [_c('div', {
+    staticClass: "note-date"
+  }, [_c('span', [_vm._v("17 Feb")])]), _vm._v(" "), _c('div', {
+    staticClass: "info-note"
+  }, [_c('span', [_vm._v("Lorem ipsum dolor sit amet, consectetur adipisicing elit.")])])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-76fca633", module.exports)
+  }
+}
+
+/***/ }),
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -31728,110 +31831,7 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-4db2b52e", module.exports)
-  }
-}
-
-/***/ }),
-/* 57 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "timeline-wrapper"
-  }, [_c('span', {
-    staticClass: "timeline"
-  }, [_c('span', {
-    staticClass: "time-bubble-wrapper",
-    style: ({
-      left: _vm.clockPosition + '%'
-    })
-  }, [_vm._m(0)]), _vm._v(" "), _c('span', {
-    staticClass: "time-dot day-start"
-  }, [_c('span', {
-    staticClass: "moment"
-  }, [_vm._v("\n\t\t\t\t" + _vm._s(_vm._f("getHM")(_vm.startingTime)) + "\n\t\t\t")])]), _vm._v(" "), _vm._l((_vm.appointments), function(appointment) {
-    return _c('span', {
-      staticClass: "appointment",
-      class: _vm.statusCheck(appointment),
-      style: (_vm.appointmentPosition(appointment))
-    }, [_c('span', {
-      staticClass: "starting-at"
-    }, [_c('span', {
-      staticClass: "moment"
-    }, [_vm._v("\n\t\t\t\t\t" + _vm._s(_vm._f("getHM")(appointment.starting_at)) + "\n\t\t\t\t")])]), _vm._v(" "), _c('span', {
-      staticClass: "bubble-wrapper"
-    }, [_c('span', {
-      staticClass: "patient-bubble",
-      on: {
-        "click": function($event) {
-          _vm.noteWindow.display = appointment.id
-        }
-      }
-    }, [_c('span', {
-      staticClass: "patient-name"
-    }, [_vm._v("\n\t\t\t\t\t\t" + _vm._s(_vm._f("getFirstLetter")(appointment.patient.name)) + "\n\t\t\t\t\t")])]), _vm._v(" "), (_vm.displayAppointment(appointment)) ? _c('div', {
-      staticClass: "patient-info"
-    }, [_c('span', {
-      staticClass: "info-close",
-      on: {
-        "click": function($event) {
-          _vm.noteWindow.display = false
-        }
-      }
-    }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("")])]), _vm._v(" "), _c('div', {
-      staticClass: "info-header"
-    }, [_c('span', {
-      staticClass: "info-name"
-    }, [_vm._v(_vm._s(appointment.patient.name) + "  " + _vm._s(appointment.patient.lastname))]), _vm._v(" "), (appointment.operation_name) ? _c('span', {
-      staticClass: "info-operation"
-    }, [_vm._v(_vm._s(appointment.operation_name))]) : _vm._e()]), _vm._v(" "), _vm._m(1, true), _vm._v(" "), _c('div', {
-      staticClass: "info-new-note"
-    }, [_c('form', {
-      attrs: {
-        "action": ""
-      }
-    }, [_c('input-template', {
-      attrs: {
-        "data": _vm.noteWindow.note
-      }
-    }), _vm._v(" "), _c('button-template', {
-      attrs: {
-        "Blabel": "Add Note",
-        "Bclass": "btn-success btn-block"
-      }
-    })], 1)])]) : _vm._e()]), _vm._v(" "), _c('span', {
-      staticClass: "ending-at"
-    }, [_c('span', {
-      staticClass: "moment"
-    }, [_vm._v("\n\t\t\t\t\t" + _vm._s(_vm._f("getHM")(appointment.ending_at)) + "\n\t\t\t\t")])])])
-  }), _vm._v(" "), _c('span', {
-    staticClass: "time-dot day-end"
-  }, [_c('span', {
-    staticClass: "moment"
-  }, [_vm._v("\n\t\t\t\t" + _vm._s(_vm._f("getHM")(_vm.endingTime)) + "\n\t\t\t")])])], 2)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "time-bubble"
-  }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "info-body"
-  }, [_c('div', {
-    staticClass: "note-date"
-  }, [_c('span', [_vm._v("17 Feb")])]), _vm._v(" "), _c('div', {
-    staticClass: "info-note"
-  }, [_c('span', [_vm._v("Lorem ipsum dolor sit amet, consectetur adipisicing elit.")])])])
-}]}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-cad07068", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-c240a13c", module.exports)
   }
 }
 
@@ -31852,13 +31852,13 @@ var content = __webpack_require__(50);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("73cbf71a", content, false);
+var update = __webpack_require__(6)("489bfed1", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-0d151997&scoped=true!../../../../node_modules/sass-loader/index.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./buttonTemplate.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-0d151997&scoped=true!../../../../node_modules/sass-loader/index.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./buttonTemplate.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-03056284&scoped=true!../../../../node_modules/sass-loader/index.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./buttonTemplate.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-03056284&scoped=true!../../../../node_modules/sass-loader/index.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./buttonTemplate.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -31878,13 +31878,13 @@ var content = __webpack_require__(51);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("be3cf08e", content, false);
+var update = __webpack_require__(6)("1b1fdceb", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-4db2b52e&scoped=true!../../../../node_modules/sass-loader/index.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./inputTemplate.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-4db2b52e&scoped=true!../../../../node_modules/sass-loader/index.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./inputTemplate.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-76fca633&scoped=true!../../../../node_modules/sass-loader/index.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./timeline.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-76fca633&scoped=true!../../../../node_modules/sass-loader/index.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./timeline.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -31904,13 +31904,13 @@ var content = __webpack_require__(52);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("eddc3a52", content, false);
+var update = __webpack_require__(6)("db70e144", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-cad07068&scoped=true!../../../../node_modules/sass-loader/index.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./timeline.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-cad07068&scoped=true!../../../../node_modules/sass-loader/index.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./timeline.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-c240a13c&scoped=true!../../../../node_modules/sass-loader/index.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./inputTemplate.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-c240a13c&scoped=true!../../../../node_modules/sass-loader/index.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./inputTemplate.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
