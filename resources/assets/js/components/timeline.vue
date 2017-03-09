@@ -103,6 +103,12 @@ import buttonTemplate from '../components/buttonTemplate'
 			inputTemplate,
 			buttonTemplate
 		},
+		props: {
+			appointments: {
+				type: Array,
+				default: () => []
+			}
+		},
 		data() {
 			return {
 				noteWindow: {
@@ -110,7 +116,6 @@ import buttonTemplate from '../components/buttonTemplate'
 					note: new Input('New Note', 'textarea')
 				},
 				now: new Date(),
-				appointments: [],
 				workingTimes : {
 					dayStart: 8, 
 					dayEnd: 22
@@ -165,12 +170,6 @@ import buttonTemplate from '../components/buttonTemplate'
 				setInterval(() => {
 					this.now = new Date();
 				},1000)
-			},
-			getAppointments() {
-				let date = phpDate(new Date());
-				axios.get(`appointments/${date}`)
-					.then(response => this.appointments = response.data)
-					.catch(error => console.log(error.data))
 			},
 			appointmentDuration(appointment) {
 				let start = new Date(appointment.starting_at);
@@ -248,7 +247,6 @@ import buttonTemplate from '../components/buttonTemplate'
 			}
 		},
 		mounted() {
-			this.getAppointments();
 			this.timer();
 		}
 	}
@@ -379,7 +377,7 @@ import buttonTemplate from '../components/buttonTemplate'
 							color: $t500
 				&.bubble-wrapper-timer
 					z-index: 10
-					transform: translateX(-45%) 
+					transform: translateX(-50%) 
 					.patient-bubble
 						border: 1px solid $b500
 						background: $b500
@@ -395,11 +393,11 @@ import buttonTemplate from '../components/buttonTemplate'
 				justify-content: center
 				align-items: center
 				position: absolute
-				border-top: 1px solid $t500
-				border-bottom: 1px solid $t500
+				border-top: 2px solid $t500
+				border-bottom: 2px solid $t500
 				&.timeline-bg
-					border-top: 1px dashed $t500
-					border-bottom: 1px dashed $t500
+					border-top: 2px dashed $t500
+					border-bottom: 2px dashed $t500
 					left: 0
 					width: 100%
 				.starting-at, .ending-at
