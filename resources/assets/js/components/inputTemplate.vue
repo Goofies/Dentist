@@ -69,6 +69,8 @@
     @import "variables.sass"
     .form-control
         padding: 10px 0px
+        position: relative
+        z-index: 1
         .form-group
             position: relative
             width: 100%

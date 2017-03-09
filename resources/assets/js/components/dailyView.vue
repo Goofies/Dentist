@@ -60,7 +60,8 @@
 			caretPosition() {
 				return (((this.now - this.todayStartTime)/this.workingDuration)*100).toFixed(2);
 			},
-			upcoming() {/*
+			upcoming() {
+			/*
 				let closest = this.appointments[0];
 				this.appointments.forEach(appointment => {
 					if(this.now - appointment.starting_at) {

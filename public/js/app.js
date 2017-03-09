@@ -11531,11 +11531,11 @@ var Component = __webpack_require__(5)(
   /* template */
   __webpack_require__(55),
   /* scopeId */
-  "data-v-03056284",
+  "data-v-0d151997",
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\Users\\kvati\\Projects\\projects\\calendar\\resources\\assets\\js\\components\\buttonTemplate.vue"
+Component.options.__file = "C:\\Users\\lutfu\\projects\\Dentist\\resources\\assets\\js\\components\\buttonTemplate.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] buttonTemplate.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -11546,9 +11546,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-03056284", Component.options)
+    hotAPI.createRecord("data-v-0d151997", Component.options)
   } else {
-    hotAPI.reload("data-v-03056284", Component.options)
+    hotAPI.reload("data-v-0d151997", Component.options)
   }
 })()}
 
@@ -11561,19 +11561,19 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(61)
+__webpack_require__(60)
 
 var Component = __webpack_require__(5)(
   /* script */
   __webpack_require__(37),
   /* template */
-  __webpack_require__(57),
+  __webpack_require__(56),
   /* scopeId */
-  "data-v-c240a13c",
+  "data-v-4db2b52e",
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\Users\\kvati\\Projects\\projects\\calendar\\resources\\assets\\js\\components\\inputTemplate.vue"
+Component.options.__file = "C:\\Users\\lutfu\\projects\\Dentist\\resources\\assets\\js\\components\\inputTemplate.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] inputTemplate.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -11584,9 +11584,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-c240a13c", Component.options)
+    hotAPI.createRecord("data-v-4db2b52e", Component.options)
   } else {
-    hotAPI.reload("data-v-c240a13c", Component.options)
+    hotAPI.reload("data-v-4db2b52e", Component.options)
   }
 })()}
 
@@ -12940,6 +12940,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -12994,23 +13024,42 @@ function phpDate(date) {
 			return this.endingTime - this.startingTime;
 		},
 		clockPosition: function clockPosition() {
-			return ((this.now - this.startingTime) / this.timelineLength * 100).toFixed(2);
+			var now = this.now;
+			var start = this.startingTime;
+			var end = this.endingTime;
+			if (now < start) {
+				return 0;
+			} else if (now > end) {
+				return 100;
+			} else {
+				return ((now - start) / this.timelineLength * 100).toFixed(2);
+			}
+		},
+		activeAppointent: function activeAppointent() {
+			var _this = this;
+
+			var active = this.appointments.find(function (appointment) {
+				var start = new Date(appointment.starting_at);
+				var end = new Date(appointment.ending_at);
+				return _this.now >= start && _this.now <= end;
+			});
+			return active;
 		}
 	},
 	methods: {
 		timer: function timer() {
-			var _this = this;
+			var _this2 = this;
 
 			setInterval(function () {
-				_this.now = new Date();
+				_this2.now = new Date();
 			}, 1000);
 		},
 		getAppointments: function getAppointments() {
-			var _this2 = this;
+			var _this3 = this;
 
 			var date = phpDate(new Date());
 			axios.get('appointments/' + date).then(function (response) {
-				return _this2.appointments = response.data;
+				return _this3.appointments = response.data;
 			}).catch(function (error) {
 				return console.log(error.data);
 			});
@@ -13034,10 +13083,19 @@ function phpDate(date) {
 				return false;
 			}
 		},
+		openInfoBox: function openInfoBox(appointmentId) {
+			this.noteWindow.display = appointmentId;
+			this.clearNewNote();
+		},
+		closeInfoBox: function closeInfoBox() {
+			this.clearNewNote();
+			this.noteWindow.display = false;
+		},
 		statusCheck: function statusCheck(appointment) {
 			var start = new Date(appointment.starting_at);
 			var end = new Date(appointment.ending_at);
 			if (this.now >= start && this.now <= end) {
+				this.activeAppointent = appointment;
 				return "active";
 			} else if (this.now < start) {
 				return "upcoming";
@@ -13045,14 +13103,33 @@ function phpDate(date) {
 				return "completed";
 			}
 		},
-		getNotes: function getNotes() {
-			var _this3 = this;
+		infoBoxSide: function infoBoxSide(appointment) {
+			var time = new Date(appointment.ending_at);
+			time = time.getHours();
+			if (time > 16) {
+				return "patient-info-left";
+			} else {
+				return "patient-info-right";
+			}
+		},
+		addNewNote: function addNewNote(patientId) {
+			var _this4 = this;
 
-			axios.get('notes/' + id).then(function (response) {
-				return _this3.notes = response.data;
+			axios.post('/notes/store', {
+				patient_id: patientId,
+				body: this.noteWindow.note.value
+			}).then(function (response) {
+				_this4.clearNewNote();
+				var appointment = _this4.appointments.find(function (appointment) {
+					return appointment.patient_id == patientId;
+				});
+				appointment.patient.notes[0] = response.data;
 			}).catch(function (error) {
-				return console.log(error.data);
+				return console.log(error.response.data);
 			});
+		},
+		clearNewNote: function clearNewNote() {
+			this.noteWindow.note.value = '';
 		}
 	},
 	filters: {
@@ -13063,7 +13140,7 @@ function phpDate(date) {
 			return hours + ":" + minutes;
 		},
 		getFirstLetter: function getFirstLetter(name) {
-			return name.substr(0, 1) + ".";
+			return name.substr(0, 1);
 		}
 	},
 	mounted: function mounted() {
@@ -14365,7 +14442,7 @@ exports = module.exports = __webpack_require__(3)();
 
 
 // module
-exports.push([module.i, "\n@charset \"UTF-8\";\n/* Lutfu Can (1:03 μμ): */\n.btn[data-v-03056284] {\n  position: relative;\n  background-color: #CFD8DC;\n  font-weight: bold;\n  box-shadow: 0px 1px 2px 0px #000000;\n  border-radius: 2px;\n  -webkit-transition: 200ms ease-in-out;\n  transition: 200ms ease-in-out;\n  overflow: hidden;\n  padding: 0;\n  margin-top: 10px;\n}\n.btn .btn-click[data-v-03056284] {\n    content: '';\n    position: absolute;\n    -webkit-transform: translateX(-50%) translateY(-50%);\n            transform: translateX(-50%) translateY(-50%);\n    border-radius: 50%;\n    background-color: rgba(1, 1, 1, 0.3);\n    opacity: 0;\n    z-index: 1;\n}\n.btn .btn-click.animate[data-v-03056284] {\n      -webkit-animation: blouloup 500ms ease-in-out forwards;\n              animation: blouloup 500ms ease-in-out forwards;\n}\n.btn button[data-v-03056284] {\n    position: relative;\n    display: inline-block;\n    padding: 6px 21px;\n    z-index: 2;\n    width: 100%;\n    height: 100%;\n    box-sizing: border-box;\n}\n.btn button[data-v-03056284]:hover {\n      cursor: pointer;\n}\n.btn[data-v-03056284]:hover {\n    box-shadow: 0px 2px 5px 0px #000000;\n}\n.btn[data-v-03056284]:active {\n    box-shadow: 0px 1px 1px 0px #000000;\n}\n.btn.btn-success[data-v-03056284] {\n    background-color: #009688;\n    color: #ECEFF1;\n}\n.btn.btn-danger[data-v-03056284] {\n    background-color: #F44336;\n    color: #ECEFF1;\n}\n.btn.btn-block[data-v-03056284] {\n    width: 100%;\n}\n@-webkit-keyframes blouloup {\n0% {\n    width: 0%;\n    padding-bottom: 0%;\n    opacity: 1;\n}\n100% {\n    width: 300%;\n    padding-bottom: 300%;\n    opacity: 0;\n}\n}\n@keyframes blouloup {\n0% {\n    width: 0%;\n    padding-bottom: 0%;\n    opacity: 1;\n}\n100% {\n    width: 300%;\n    padding-bottom: 300%;\n    opacity: 0;\n}\n}\n", ""]);
+exports.push([module.i, "\n@charset \"UTF-8\";\n/* Lutfu Can (1:03 μμ): */\n.btn[data-v-0d151997] {\n  position: relative;\n  background-color: #CFD8DC;\n  font-weight: bold;\n  box-shadow: 0px 1px 2px 0px #000000;\n  border-radius: 2px;\n  -webkit-transition: 200ms ease-in-out;\n  transition: 200ms ease-in-out;\n  overflow: hidden;\n  padding: 0;\n  margin-top: 10px;\n}\n.btn .btn-click[data-v-0d151997] {\n    content: '';\n    position: absolute;\n    -webkit-transform: translateX(-50%) translateY(-50%);\n            transform: translateX(-50%) translateY(-50%);\n    border-radius: 50%;\n    background-color: rgba(1, 1, 1, 0.3);\n    opacity: 0;\n    z-index: 1;\n}\n.btn .btn-click.animate[data-v-0d151997] {\n      -webkit-animation: blouloup 500ms ease-in-out forwards;\n              animation: blouloup 500ms ease-in-out forwards;\n}\n.btn button[data-v-0d151997] {\n    position: relative;\n    display: inline-block;\n    padding: 6px 21px;\n    z-index: 2;\n    width: 100%;\n    height: 100%;\n    box-sizing: border-box;\n}\n.btn button[data-v-0d151997]:hover {\n      cursor: pointer;\n}\n.btn[data-v-0d151997]:hover {\n    box-shadow: 0px 2px 5px 0px #000000;\n}\n.btn[data-v-0d151997]:active {\n    box-shadow: 0px 1px 1px 0px #000000;\n}\n.btn.btn-success[data-v-0d151997] {\n    background-color: #009688;\n    color: #ECEFF1;\n}\n.btn.btn-danger[data-v-0d151997] {\n    background-color: #F44336;\n    color: #ECEFF1;\n}\n.btn.btn-block[data-v-0d151997] {\n    width: 100%;\n}\n@-webkit-keyframes blouloup {\n0% {\n    width: 0%;\n    padding-bottom: 0%;\n    opacity: 1;\n}\n100% {\n    width: 300%;\n    padding-bottom: 300%;\n    opacity: 0;\n}\n}\n@keyframes blouloup {\n0% {\n    width: 0%;\n    padding-bottom: 0%;\n    opacity: 1;\n}\n100% {\n    width: 300%;\n    padding-bottom: 300%;\n    opacity: 0;\n}\n}\n", ""]);
 
 // exports
 
@@ -14379,7 +14456,7 @@ exports = module.exports = __webpack_require__(3)();
 
 
 // module
-exports.push([module.i, "\n.timeline-wrapper[data-v-76fca633] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  position: relative;\n  margin: 40px 40px;\n  z-index: 5;\n}\n.timeline-wrapper .timeline[data-v-76fca633] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    width: 100%;\n    border: 2px dashed #009688;\n}\n.timeline-wrapper .timeline .time-bubble-wrapper[data-v-76fca633] {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-pack: center;\n          -ms-flex-pack: center;\n              justify-content: center;\n      -webkit-box-align: center;\n          -ms-flex-align: center;\n              align-items: center;\n      position: absolute;\n      top: 12px;\n      -webkit-transform-origin: 50% -10px;\n              transform-origin: 50% -10px;\n      left: 0%;\n      -webkit-transform: translateX(-50%);\n              transform: translateX(-50%);\n      z-index: 1;\n}\n.timeline-wrapper .timeline .time-bubble-wrapper .time-bubble[data-v-76fca633] {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: center;\n            -ms-flex-pack: center;\n                justify-content: center;\n        -webkit-box-align: center;\n            -ms-flex-align: center;\n                align-items: center;\n        height: 40px;\n        width: 40px;\n        position: relative;\n        border: 1px solid #37474F;\n        background: #607D8B;\n        color: #ECEFF1;\n        border-radius: 0% 50% 50% 50%;\n        -webkit-transform: rotate(45deg);\n                transform: rotate(45deg);\n}\n.timeline-wrapper .timeline .time-bubble-wrapper .time-bubble .material-icons[data-v-76fca633] {\n          -webkit-transform: rotate(-45deg);\n                  transform: rotate(-45deg);\n}\n.timeline-wrapper .timeline .day-start[data-v-76fca633], .timeline-wrapper .timeline .day-end[data-v-76fca633] {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-pack: center;\n          -ms-flex-pack: center;\n              justify-content: center;\n      -webkit-box-align: center;\n          -ms-flex-align: center;\n              align-items: center;\n      position: absolute;\n      left: 0;\n      -webkit-transform: translateX(-50%);\n              transform: translateX(-50%);\n      height: 10px;\n      width: 10px;\n      border-radius: 50%;\n      background: #ECEFF1;\n      border: 3px solid #009688;\n}\n.timeline-wrapper .timeline .day-end[data-v-76fca633] {\n      left: 100%;\n}\n.timeline-wrapper .timeline .time-dot .moment[data-v-76fca633] {\n      position: absolute;\n      bottom: 100%;\n}\n.timeline-wrapper .timeline .appointment[data-v-76fca633] {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-pack: center;\n          -ms-flex-pack: center;\n              justify-content: center;\n      -webkit-box-align: center;\n          -ms-flex-align: center;\n              align-items: center;\n      position: absolute;\n      left: 30%;\n      border: 2px solid #009688;\n}\n.timeline-wrapper .timeline .appointment .starting-at[data-v-76fca633], .timeline-wrapper .timeline .appointment .ending-at[data-v-76fca633] {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: center;\n            -ms-flex-pack: center;\n                justify-content: center;\n        -webkit-box-align: center;\n            -ms-flex-align: center;\n                align-items: center;\n        position: absolute;\n        left: 0;\n        -webkit-transform: translateX(-50%);\n                transform: translateX(-50%);\n        height: 10px;\n        width: 10px;\n        border-radius: 50%;\n        background: #ECEFF1;\n        border: 3px solid #009688;\n}\n.timeline-wrapper .timeline .appointment .starting-at .moment[data-v-76fca633], .timeline-wrapper .timeline .appointment .ending-at .moment[data-v-76fca633] {\n          position: absolute;\n          bottom: 100%;\n}\n.timeline-wrapper .timeline .appointment .ending-at[data-v-76fca633] {\n        left: 100%;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper[data-v-76fca633] {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: center;\n            -ms-flex-pack: center;\n                justify-content: center;\n        -webkit-box-align: center;\n            -ms-flex-align: center;\n                align-items: center;\n        position: absolute;\n        top: 10px;\n        -webkit-transform-origin: 50% -10px;\n                transform-origin: 50% -10px;\n        left: 0%;\n        -webkit-transform: translateX(-50%);\n                transform: translateX(-50%);\n        z-index: 1;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-bubble[data-v-76fca633] {\n          display: -webkit-box;\n          display: -ms-flexbox;\n          display: flex;\n          -webkit-box-pack: center;\n              -ms-flex-pack: center;\n                  justify-content: center;\n          -webkit-box-align: center;\n              -ms-flex-align: center;\n                  align-items: center;\n          height: 40px;\n          width: 40px;\n          position: relative;\n          border: 1px solid #009688;\n          background: #E0F2F1;\n          border-radius: 0% 50% 50% 50%;\n          -webkit-transform: rotate(45deg);\n                  transform: rotate(45deg);\n          -webkit-transition: 300ms ease-in-out;\n          transition: 300ms ease-in-out;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-bubble[data-v-76fca633]:hover {\n            cursor: pointer;\n            background: #009688;\n            color: #ECEFF1;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-bubble .patient-name[data-v-76fca633] {\n            font-size: 24px;\n            font-weight: bold;\n            -webkit-transform: rotate(-45deg);\n                    transform: rotate(-45deg);\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info[data-v-76fca633] {\n          position: absolute;\n          width: 300px;\n          background: #B2DFDB;\n          left: 120%;\n          top: 20%;\n          border-radius: 5px;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info .info-close[data-v-76fca633] {\n            position: absolute;\n            left: 100%;\n            color: #607D8B;\n            -webkit-transition: 300ms ease-in-out;\n            transition: 300ms ease-in-out;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info .info-close[data-v-76fca633]:hover {\n              cursor: pointer;\n              color: #009688;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info .info-header[data-v-76fca633] {\n            display: -webkit-box;\n            display: -ms-flexbox;\n            display: flex;\n            -webkit-box-pack: justify;\n                -ms-flex-pack: justify;\n                    justify-content: space-between;\n            -webkit-box-align: center;\n                -ms-flex-align: center;\n                    align-items: center;\n            background: #009688;\n            border-radius: 5px 5px 0px 0px;\n            padding: 2px 5px;\n            color: #ECEFF1;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info .info-header .info-name[data-v-76fca633] {\n              font-weight: bold;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info .info-header .info-operation[data-v-76fca633] {\n              font-size: 12px;\n              font-weight: lighter;\n              font-style: italic;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info .info-body .note-date[data-v-76fca633] {\n            display: -webkit-box;\n            display: -ms-flexbox;\n            display: flex;\n            -webkit-box-align: center;\n                -ms-flex-align: center;\n                    align-items: center;\n            -webkit-box-pack: center;\n                -ms-flex-pack: center;\n                    justify-content: center;\n            position: relative;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info .info-body .note-date span[data-v-76fca633] {\n              background-color: #B2DFDB;\n              z-index: 2;\n              padding: 0px 10px;\n              font-size: 14px;\n              font-weight: lighter;\n              font-style: italic;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info .info-body .note-date[data-v-76fca633]:before {\n              content: '';\n              position: absolute;\n              height: 1px;\n              border-bottom: 1px solid #607D8B;\n              left: 0;\n              right: 0;\n}\n.timeline-wrapper .timeline .appointment .bubble-wrapper .patient-info .info-body .info-note[data-v-76fca633] {\n            border-bottom: 1px solid #607D8B;\n            padding: 0px 4px 7px;\n}\n", ""]);
+exports.push([module.i, "\n.form-control[data-v-4db2b52e] {\n  padding: 10px 0px;\n  position: relative;\n  z-index: 1;\n}\n.form-control .form-group[data-v-4db2b52e] {\n    position: relative;\n    width: 100%;\n    border-bottom: 2px solid #B0BEC5;\n    margin-top: 16px;\n}\n.form-control .form-group[data-v-4db2b52e]:after {\n      content: '';\n      position: absolute;\n      height: 2px;\n      width: 0%;\n      bottom: -2px;\n      left: 0;\n      background-color: #00695C;\n      box-shadow: 0px 0px 10px 0px #00695C;\n      -webkit-transition: 400ms ease-in-out;\n      transition: 400ms ease-in-out;\n}\n.form-control .form-group .form-label[data-v-4db2b52e] {\n      position: absolute;\n      left: 5px;\n      z-index: -1;\n      color: #B0BEC5;\n      letter-spacing: 2.5px;\n      -webkit-transition: 400ms ease-in-out;\n      transition: 400ms ease-in-out;\n}\n.form-control .form-group .form-label.active[data-v-4db2b52e] {\n        -webkit-transform: translateY(-100%);\n                transform: translateY(-100%);\n        color: #00695C;\n        letter-spacing: 0px;\n        font-size: 14px;\n}\n.form-control .form-group .form-input[data-v-4db2b52e] {\n      padding: 5px;\n      width: 100%;\n      box-sizing: border-box;\n}\n.form-control .form-group .form-error[data-v-4db2b52e] {\n      position: absolute;\n      bottom: 0;\n      -webkit-transform: translateY(100%);\n              transform: translateY(100%);\n      font-size: 14px;\n      color: #D32F2F;\n      -webkit-transition: 400ms ease-in-out;\n      transition: 400ms ease-in-out;\n      opacity: 0;\n}\n.form-control .form-group.active[data-v-4db2b52e]:after {\n      width: 100%;\n      box-shadow: 0px 0px 10px 0px #00695C;\n}\n.form-control .form-group.haserror[data-v-4db2b52e]:after {\n      width: 100%;\n      background-color: #D32F2F;\n      box-shadow: 0px 0px 10px 0px #D32F2F;\n}\n.form-control .form-group.haserror .form-error[data-v-4db2b52e] {\n      opacity: 1;\n}\n", ""]);
 
 // exports
 
@@ -14393,7 +14470,7 @@ exports = module.exports = __webpack_require__(3)();
 
 
 // module
-exports.push([module.i, "\n.form-control[data-v-c240a13c] {\n  padding: 10px 0px;\n}\n.form-control .form-group[data-v-c240a13c] {\n    position: relative;\n    width: 100%;\n    border-bottom: 2px solid #B0BEC5;\n    margin-top: 16px;\n}\n.form-control .form-group[data-v-c240a13c]:after {\n      content: '';\n      position: absolute;\n      height: 2px;\n      width: 0%;\n      bottom: -2px;\n      left: 0;\n      background-color: #00695C;\n      box-shadow: 0px 0px 10px 0px #00695C;\n      -webkit-transition: 400ms ease-in-out;\n      transition: 400ms ease-in-out;\n}\n.form-control .form-group .form-label[data-v-c240a13c] {\n      position: absolute;\n      left: 5px;\n      z-index: -1;\n      color: #B0BEC5;\n      letter-spacing: 2.5px;\n      -webkit-transition: 400ms ease-in-out;\n      transition: 400ms ease-in-out;\n}\n.form-control .form-group .form-label.active[data-v-c240a13c] {\n        -webkit-transform: translateY(-100%);\n                transform: translateY(-100%);\n        color: #00695C;\n        letter-spacing: 0px;\n        font-size: 14px;\n}\n.form-control .form-group .form-input[data-v-c240a13c] {\n      padding: 5px;\n      width: 100%;\n      box-sizing: border-box;\n}\n.form-control .form-group .form-error[data-v-c240a13c] {\n      position: absolute;\n      bottom: 0;\n      -webkit-transform: translateY(100%);\n              transform: translateY(100%);\n      font-size: 14px;\n      color: #D32F2F;\n      -webkit-transition: 400ms ease-in-out;\n      transition: 400ms ease-in-out;\n      opacity: 0;\n}\n.form-control .form-group.active[data-v-c240a13c]:after {\n      width: 100%;\n      box-shadow: 0px 0px 10px 0px #00695C;\n}\n.form-control .form-group.haserror[data-v-c240a13c]:after {\n      width: 100%;\n      background-color: #D32F2F;\n      box-shadow: 0px 0px 10px 0px #D32F2F;\n}\n.form-control .form-group.haserror .form-error[data-v-c240a13c] {\n      opacity: 1;\n}\n", ""]);
+exports.push([module.i, "\n.timeline-wrapper[data-v-cad07068] {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  position: relative;\n  margin: 40px 40px;\n  z-index: 5;\n}\n.timeline-wrapper .timeline[data-v-cad07068] {\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-pack: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    width: 100%;\n}\n.timeline-wrapper .timeline .bubble-wrapper[data-v-cad07068] {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-pack: center;\n          -ms-flex-pack: center;\n              justify-content: center;\n      -webkit-box-align: center;\n          -ms-flex-align: center;\n              align-items: center;\n      position: absolute;\n      top: 10px;\n      -webkit-transform-origin: 50% -10px;\n              transform-origin: 50% -10px;\n      -webkit-transform: translateX(-50%);\n              transform: translateX(-50%);\n      z-index: 1;\n}\n.timeline-wrapper .timeline .bubble-wrapper .patient-bubble[data-v-cad07068] {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: center;\n            -ms-flex-pack: center;\n                justify-content: center;\n        -webkit-box-align: center;\n            -ms-flex-align: center;\n                align-items: center;\n        height: 40px;\n        width: 40px;\n        position: relative;\n        border: 1px solid #009688;\n        background: #E0F2F1;\n        border-radius: 0% 50% 50% 50%;\n        -webkit-transform: rotate(45deg);\n                transform: rotate(45deg);\n        -webkit-transition: 300ms ease-in-out;\n        transition: 300ms ease-in-out;\n}\n.timeline-wrapper .timeline .bubble-wrapper .patient-bubble[data-v-cad07068]:hover {\n          cursor: pointer;\n          background: #009688;\n          color: #ECEFF1;\n}\n.timeline-wrapper .timeline .bubble-wrapper .patient-bubble .patient-name[data-v-cad07068] {\n          font-size: 24px;\n          font-weight: bold;\n          -webkit-transform: rotate(-45deg);\n                  transform: rotate(-45deg);\n}\n.timeline-wrapper .timeline .bubble-wrapper .patient-info[data-v-cad07068] {\n        position: absolute;\n        width: 300px;\n        background: #B2DFDB;\n        top: 130%;\n        border-radius: 5px;\n}\n.timeline-wrapper .timeline .bubble-wrapper .patient-info.patient-info-right[data-v-cad07068] {\n          left: 50%;\n}\n.timeline-wrapper .timeline .bubble-wrapper .patient-info.patient-info-left[data-v-cad07068] {\n          right: 50%;\n}\n.timeline-wrapper .timeline .bubble-wrapper .patient-info .info-close[data-v-cad07068] {\n          position: absolute;\n          left: 100%;\n          bottom: 100%;\n          -webkit-transform: translateY(50%);\n                  transform: translateY(50%);\n          color: #607D8B;\n          -webkit-transition: 300ms ease-in-out;\n          transition: 300ms ease-in-out;\n}\n.timeline-wrapper .timeline .bubble-wrapper .patient-info .info-close[data-v-cad07068]:hover {\n            cursor: pointer;\n            color: #009688;\n}\n.timeline-wrapper .timeline .bubble-wrapper .patient-info .info-header[data-v-cad07068] {\n          display: -webkit-box;\n          display: -ms-flexbox;\n          display: flex;\n          -webkit-box-pack: justify;\n              -ms-flex-pack: justify;\n                  justify-content: space-between;\n          -webkit-box-align: center;\n              -ms-flex-align: center;\n                  align-items: center;\n          background: #009688;\n          border-radius: 5px 5px 0px 0px;\n          padding: 2px 5px;\n          color: #ECEFF1;\n}\n.timeline-wrapper .timeline .bubble-wrapper .patient-info .info-header .info-name[data-v-cad07068] {\n            font-weight: bold;\n}\n.timeline-wrapper .timeline .bubble-wrapper .patient-info .info-header .info-operation[data-v-cad07068] {\n            font-size: 12px;\n            font-weight: lighter;\n            font-style: italic;\n            margin-right: 5px;\n}\n.timeline-wrapper .timeline .bubble-wrapper .patient-info .info-body .note-date[data-v-cad07068] {\n          display: -webkit-box;\n          display: -ms-flexbox;\n          display: flex;\n          -webkit-box-align: center;\n              -ms-flex-align: center;\n                  align-items: center;\n          -webkit-box-pack: center;\n              -ms-flex-pack: center;\n                  justify-content: center;\n          position: relative;\n}\n.timeline-wrapper .timeline .bubble-wrapper .patient-info .info-body .note-date span[data-v-cad07068] {\n            background-color: #B2DFDB;\n            z-index: 2;\n            padding: 0px 10px;\n            font-size: 14px;\n            font-weight: lighter;\n            font-style: italic;\n}\n.timeline-wrapper .timeline .bubble-wrapper .patient-info .info-body .note-date[data-v-cad07068]:before {\n            content: '';\n            position: absolute;\n            height: 1px;\n            border-bottom: 1px solid #607D8B;\n            left: 0;\n            right: 0;\n}\n.timeline-wrapper .timeline .bubble-wrapper .patient-info .info-body .info-note[data-v-cad07068] {\n          border-bottom: 1px solid #607D8B;\n          padding: 0px 4px 7px;\n}\n.timeline-wrapper .timeline .bubble-wrapper.completed[data-v-cad07068] {\n        left: 100%;\n}\n.timeline-wrapper .timeline .bubble-wrapper.completed .patient-bubble[data-v-cad07068] {\n          border: 1px solid #607D8B;\n          background: #E0F2F1;\n          color: #009688;\n}\n.timeline-wrapper .timeline .bubble-wrapper.completed .patient-bubble[data-v-cad07068]:hover {\n            border: 1px solid #607D8B;\n            background: #009688;\n            color: #E0F2F1;\n}\n.timeline-wrapper .timeline .bubble-wrapper.active[data-v-cad07068] {\n        display: none;\n}\n.timeline-wrapper .timeline .bubble-wrapper.upcoming[data-v-cad07068] {\n        left: 0%;\n}\n.timeline-wrapper .timeline .bubble-wrapper.upcoming .patient-bubble[data-v-cad07068] {\n          border: 1px solid #607D8B;\n          background: #009688;\n          color: #E0F2F1;\n}\n.timeline-wrapper .timeline .bubble-wrapper.upcoming .patient-bubble[data-v-cad07068]:hover {\n            border: 1px solid #607D8B;\n            background: #E0F2F1;\n            color: #009688;\n}\n.timeline-wrapper .timeline .bubble-wrapper.bubble-wrapper-timer[data-v-cad07068] {\n        z-index: 10;\n        -webkit-transform: translateX(-45%);\n                transform: translateX(-45%);\n}\n.timeline-wrapper .timeline .bubble-wrapper.bubble-wrapper-timer .patient-bubble[data-v-cad07068] {\n          border: 1px solid #607D8B;\n          background: #607D8B;\n          color: #ECEFF1;\n}\n.timeline-wrapper .timeline .bubble-wrapper.bubble-wrapper-timer .patient-bubble[data-v-cad07068]:hover {\n            border: 1px solid #607D8B;\n            background: #ECEFF1;\n            color: #607D8B;\n}\n.timeline-wrapper .timeline .bubble-wrapper.bubble-wrapper-timer .patient-bubble .material-icons[data-v-cad07068] {\n            -webkit-transform: rotate(-45deg);\n                    transform: rotate(-45deg);\n}\n.timeline-wrapper .timeline .appointment[data-v-cad07068] {\n      display: -webkit-box;\n      display: -ms-flexbox;\n      display: flex;\n      -webkit-box-pack: center;\n          -ms-flex-pack: center;\n              justify-content: center;\n      -webkit-box-align: center;\n          -ms-flex-align: center;\n              align-items: center;\n      position: absolute;\n      border: 2px solid #009688;\n}\n.timeline-wrapper .timeline .appointment.timeline-bg[data-v-cad07068] {\n        border: 2px dashed #009688;\n        left: 0;\n        width: 100%;\n}\n.timeline-wrapper .timeline .appointment .starting-at[data-v-cad07068], .timeline-wrapper .timeline .appointment .ending-at[data-v-cad07068] {\n        display: -webkit-box;\n        display: -ms-flexbox;\n        display: flex;\n        -webkit-box-pack: center;\n            -ms-flex-pack: center;\n                justify-content: center;\n        -webkit-box-align: center;\n            -ms-flex-align: center;\n                align-items: center;\n        position: absolute;\n        left: 0;\n        -webkit-transform: translateX(-50%);\n                transform: translateX(-50%);\n        height: 10px;\n        width: 10px;\n        border-radius: 50%;\n        background: #ECEFF1;\n        border: 3px solid #009688;\n}\n.timeline-wrapper .timeline .appointment .starting-at .moment[data-v-cad07068], .timeline-wrapper .timeline .appointment .ending-at .moment[data-v-cad07068] {\n          position: absolute;\n          bottom: 100%;\n}\n.timeline-wrapper .timeline .appointment .ending-at[data-v-cad07068] {\n        left: 100%;\n}\n", ""]);
 
 // exports
 
@@ -31496,19 +31573,19 @@ exports.push([module.i, "\n.form-control[data-v-c240a13c] {\n  padding: 10px 0px
 
 
 /* styles */
-__webpack_require__(60)
+__webpack_require__(61)
 
 var Component = __webpack_require__(5)(
   /* script */
   __webpack_require__(38),
   /* template */
-  __webpack_require__(56),
+  __webpack_require__(57),
   /* scopeId */
-  "data-v-76fca633",
+  "data-v-cad07068",
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\Users\\kvati\\Projects\\projects\\calendar\\resources\\assets\\js\\components\\timeline.vue"
+Component.options.__file = "C:\\Users\\lutfu\\projects\\Dentist\\resources\\assets\\js\\components\\timeline.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] timeline.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -31519,9 +31596,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-76fca633", Component.options)
+    hotAPI.createRecord("data-v-cad07068", Component.options)
   } else {
-    hotAPI.reload("data-v-76fca633", Component.options)
+    hotAPI.reload("data-v-cad07068", Component.options)
   }
 })()}
 
@@ -31555,115 +31632,12 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-03056284", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-0d151997", module.exports)
   }
 }
 
 /***/ }),
 /* 56 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "timeline-wrapper"
-  }, [_c('span', {
-    staticClass: "timeline"
-  }, [_c('span', {
-    staticClass: "time-bubble-wrapper",
-    style: ({
-      left: _vm.clockPosition + '%'
-    })
-  }, [_vm._m(0)]), _vm._v(" "), _c('span', {
-    staticClass: "time-dot day-start"
-  }, [_c('span', {
-    staticClass: "moment"
-  }, [_vm._v("\n\t\t\t\t" + _vm._s(_vm._f("getHM")(_vm.startingTime)) + "\n\t\t\t")])]), _vm._v(" "), _vm._l((_vm.appointments), function(appointment) {
-    return _c('span', {
-      staticClass: "appointment",
-      class: _vm.statusCheck(appointment),
-      style: (_vm.appointmentPosition(appointment))
-    }, [_c('span', {
-      staticClass: "starting-at"
-    }, [_c('span', {
-      staticClass: "moment"
-    }, [_vm._v("\n\t\t\t\t\t" + _vm._s(_vm._f("getHM")(appointment.starting_at)) + "\n\t\t\t\t")])]), _vm._v(" "), _c('span', {
-      staticClass: "bubble-wrapper"
-    }, [_c('span', {
-      staticClass: "patient-bubble",
-      on: {
-        "click": function($event) {
-          _vm.noteWindow.display = appointment.id
-        }
-      }
-    }, [_c('span', {
-      staticClass: "patient-name"
-    }, [_vm._v("\n\t\t\t\t\t\t" + _vm._s(_vm._f("getFirstLetter")(appointment.patient.name)) + "\n\t\t\t\t\t")])]), _vm._v(" "), (_vm.displayAppointment(appointment)) ? _c('div', {
-      staticClass: "patient-info"
-    }, [_c('span', {
-      staticClass: "info-close",
-      on: {
-        "click": function($event) {
-          _vm.noteWindow.display = false
-        }
-      }
-    }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("")])]), _vm._v(" "), _c('div', {
-      staticClass: "info-header"
-    }, [_c('span', {
-      staticClass: "info-name"
-    }, [_vm._v(_vm._s(appointment.patient.name) + "  " + _vm._s(appointment.patient.lastname))]), _vm._v(" "), (appointment.operation_name) ? _c('span', {
-      staticClass: "info-operation"
-    }, [_vm._v(_vm._s(appointment.operation_name))]) : _vm._e()]), _vm._v(" "), _vm._m(1, true), _vm._v(" "), _c('div', {
-      staticClass: "info-new-note"
-    }, [_c('form', {
-      attrs: {
-        "action": ""
-      }
-    }, [_c('input-template', {
-      attrs: {
-        "data": _vm.noteWindow.note
-      }
-    }), _vm._v(" "), _c('button-template', {
-      attrs: {
-        "Blabel": "Add Note",
-        "Bclass": "btn-success btn-block"
-      }
-    })], 1)])]) : _vm._e()]), _vm._v(" "), _c('span', {
-      staticClass: "ending-at"
-    }, [_c('span', {
-      staticClass: "moment"
-    }, [_vm._v("\n\t\t\t\t\t" + _vm._s(_vm._f("getHM")(appointment.ending_at)) + "\n\t\t\t\t")])])])
-  }), _vm._v(" "), _c('span', {
-    staticClass: "time-dot day-end"
-  }, [_c('span', {
-    staticClass: "moment"
-  }, [_vm._v("\n\t\t\t\t" + _vm._s(_vm._f("getHM")(_vm.endingTime)) + "\n\t\t\t")])])], 2)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "time-bubble"
-  }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "info-body"
-  }, [_c('div', {
-    staticClass: "note-date"
-  }, [_c('span', [_vm._v("17 Feb")])]), _vm._v(" "), _c('div', {
-    staticClass: "info-note"
-  }, [_c('span', [_vm._v("Lorem ipsum dolor sit amet, consectetur adipisicing elit.")])])])
-}]}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-76fca633", module.exports)
-  }
-}
-
-/***/ }),
-/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -31831,7 +31805,171 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-c240a13c", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-4db2b52e", module.exports)
+  }
+}
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "timeline-wrapper"
+  }, [_c('span', {
+    staticClass: "timeline"
+  }, [_c('span', {
+    staticClass: "bubble-wrapper bubble-wrapper-timer",
+    style: ({
+      left: _vm.clockPosition + '%'
+    })
+  }, [(!_vm.activeAppointent) ? _c('span', {
+    staticClass: "patient-bubble"
+  }, [_c('i', {
+    staticClass: "material-icons"
+  }, [_vm._v("")])]) : _c('span', [_c('span', {
+    staticClass: "patient-bubble",
+    on: {
+      "click": function($event) {
+        _vm.openInfoBox(_vm.activeAppointent.id)
+      }
+    }
+  }, [_c('span', {
+    staticClass: "patient-name"
+  }, [_vm._v("\n\t\t\t\t\t\t" + _vm._s(_vm._f("getFirstLetter")(_vm.activeAppointent.patient.name)) + "\n\t\t\t\t\t")])]), _vm._v(" "), (_vm.displayAppointment(_vm.activeAppointent)) ? _c('div', {
+    staticClass: "patient-info",
+    class: _vm.infoBoxSide(_vm.activeAppointent)
+  }, [_c('span', {
+    staticClass: "info-close",
+    on: {
+      "click": function($event) {
+        _vm.closeInfoBox()
+      }
+    }
+  }, [_c('i', {
+    staticClass: "material-icons"
+  }, [_vm._v("")])]), _vm._v(" "), _c('div', {
+    staticClass: "info-header"
+  }, [_c('span', {
+    staticClass: "info-name"
+  }, [_vm._v(_vm._s(_vm.activeAppointent.patient.name) + "  " + _vm._s(_vm.activeAppointent.patient.lastname))]), _vm._v(" "), (_vm.activeAppointent.operation_name) ? _c('span', {
+    staticClass: "info-operation"
+  }, [_vm._v(_vm._s(_vm.activeAppointent.operation_name))]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "info-body"
+  }, [_c('div', {
+    staticClass: "note-date"
+  }, [_c('span', [_vm._v("17 Feb")])]), _vm._v(" "), _c('div', {
+    staticClass: "info-note"
+  }, [_c('span', [_vm._v(_vm._s(_vm.activeAppointent.patient.notes[0] ? _vm.activeAppointent.patient.notes[0].body : "No Note Found"))])])]), _vm._v(" "), _c('div', {
+    staticClass: "info-new-note"
+  }, [_c('form', {
+    attrs: {
+      "action": ""
+    },
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.addNewNote(_vm.activeAppointent.patient_id)
+      }
+    }
+  }, [_c('input-template', {
+    attrs: {
+      "data": _vm.noteWindow.note
+    }
+  }), _vm._v(" "), _c('button-template', {
+    attrs: {
+      "Blabel": "Add Note",
+      "Bclass": "btn-success btn-block"
+    }
+  })], 1)])]) : _vm._e()])]), _vm._v(" "), _c('span', {
+    staticClass: "appointment timeline-bg"
+  }, [_c('span', {
+    staticClass: "starting-at"
+  }, [_c('span', {
+    staticClass: "moment"
+  }, [_vm._v("\n\t\t\t\t\t" + _vm._s(_vm._f("getHM")(_vm.startingTime)) + "\n\t\t\t\t")])]), _vm._v(" "), _c('span', {
+    staticClass: "ending-at"
+  }, [_c('span', {
+    staticClass: "moment"
+  }, [_vm._v("\n\t\t\t\t\t" + _vm._s(_vm._f("getHM")(_vm.endingTime)) + "\n\t\t\t\t")])])]), _vm._v(" "), _vm._l((_vm.appointments), function(appointment) {
+    return _c('span', {
+      staticClass: "appointment",
+      style: (_vm.appointmentPosition(appointment))
+    }, [_c('span', {
+      staticClass: "starting-at"
+    }, [_c('span', {
+      staticClass: "moment"
+    }, [_vm._v("\n\t\t\t\t\t" + _vm._s(_vm._f("getHM")(appointment.starting_at)) + "\n\t\t\t\t")])]), _vm._v(" "), _c('span', {
+      staticClass: "bubble-wrapper",
+      class: _vm.statusCheck(appointment)
+    }, [_c('span', {
+      staticClass: "patient-bubble",
+      on: {
+        "click": function($event) {
+          _vm.openInfoBox(appointment.id)
+        }
+      }
+    }, [_c('span', {
+      staticClass: "patient-name"
+    }, [_vm._v("\n\t\t\t\t\t\t" + _vm._s(_vm._f("getFirstLetter")(appointment.patient.name)) + "\n\t\t\t\t\t")])]), _vm._v(" "), (_vm.displayAppointment(appointment)) ? _c('div', {
+      staticClass: "patient-info",
+      class: _vm.infoBoxSide(appointment)
+    }, [_c('span', {
+      staticClass: "info-close",
+      on: {
+        "click": function($event) {
+          _vm.closeInfoBox()
+        }
+      }
+    }, [_c('i', {
+      staticClass: "material-icons"
+    }, [_vm._v("")])]), _vm._v(" "), _c('div', {
+      staticClass: "info-header"
+    }, [_c('span', {
+      staticClass: "info-name"
+    }, [_vm._v(_vm._s(appointment.patient.name) + "  " + _vm._s(appointment.patient.lastname))]), _vm._v(" "), (appointment.operation_name) ? _c('span', {
+      staticClass: "info-operation"
+    }, [_vm._v(_vm._s(appointment.operation_name))]) : _vm._e()]), _vm._v(" "), _c('div', {
+      staticClass: "info-body"
+    }, [_vm._m(0, true), _vm._v(" "), _c('div', {
+      staticClass: "info-note"
+    }, [_c('span', [_vm._v(_vm._s(appointment.patient.notes[0] ? appointment.patient.notes[0].body : "No Note Found"))])])]), _vm._v(" "), _c('div', {
+      staticClass: "info-new-note"
+    }, [_c('form', {
+      attrs: {
+        "action": ""
+      },
+      on: {
+        "submit": function($event) {
+          $event.preventDefault();
+          _vm.addNewNote(appointment.patient_id)
+        }
+      }
+    }, [_c('input-template', {
+      attrs: {
+        "data": _vm.noteWindow.note
+      }
+    }), _vm._v(" "), _c('button-template', {
+      attrs: {
+        "Blabel": "Add Note",
+        "Bclass": "btn-success btn-block"
+      }
+    })], 1)])]) : _vm._e()]), _vm._v(" "), _c('span', {
+      staticClass: "ending-at"
+    }, [_c('span', {
+      staticClass: "moment"
+    }, [_vm._v("\n\t\t\t\t\t" + _vm._s(_vm._f("getHM")(appointment.ending_at)) + "\n\t\t\t\t")])])])
+  })], 2)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "note-date"
+  }, [_c('span', [_vm._v("17 Feb")])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-cad07068", module.exports)
   }
 }
 
@@ -31839,7 +31977,7 @@ if (false) {
 /* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
-!function(e,t){ true?module.exports=t():"function"==typeof define&&define.amd?define([],t):"object"==typeof exports?exports.VueMultiselect=t():e.VueMultiselect=t()}(this,function(){return function(e){function t(n){if(i[n])return i[n].exports;var s=i[n]={i:n,l:!1,exports:{}};return e[n].call(s.exports,s,s.exports,t),s.l=!0,s.exports}var i={};return t.m=e,t.c=i,t.i=function(e){return e},t.d=function(e,i,n){t.o(e,i)||Object.defineProperty(e,i,{configurable:!1,enumerable:!0,get:n})},t.n=function(e){var i=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(i,"a",i),i},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="/",t(t.s=8)}([function(e,t,i){"use strict";function n(e){return e&&e.__esModule?e:{default:e}}function s(e,t,i){return t in e?Object.defineProperty(e,t,{value:i,enumerable:!0,configurable:!0,writable:!0}):e[t]=i,e}function l(e,t){if(!e)return!1;var i=e.toString().toLowerCase();return i.indexOf(t.trim())!==-1}function o(e,t,i){return i?e.filter(function(e){return l(e[i],t)}):e.filter(function(e){return l(e,t)})}function r(e){return e.filter(function(e){return!e.$isLabel})}function a(e,t){return function(i){return i.reduce(function(i,n){return n[e]&&n[e].length?(i.push({$groupLabel:n[t],$isLabel:!0}),i.concat(n[e])):i.concat(n)},[])}}function u(e,t,i,n){return function(l){return l.map(function(l){var r,a=o(l[i],e,t);return a.length?(r={},s(r,n,l[n]),s(r,i,a),r):[]})}}Object.defineProperty(t,"__esModule",{value:!0});var c="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},h=i(2),p=n(h),f=function(){for(var e=arguments.length,t=Array(e),i=0;i<e;i++)t[i]=arguments[i];return function(e){return t.reduce(function(e,t){return t(e)},e)}};t.default={data:function(){return{search:"",isOpen:!1,hasEnoughSpace:!0,internalValue:this.value||0===this.value?(0,p.default)(Array.isArray(this.value)?this.value:[this.value]):[]}},props:{internalSearch:{type:Boolean,default:!0},options:{type:Array,required:!0},multiple:{type:Boolean,default:!1},value:{type:null,default:function(){return[]}},trackBy:{type:String},label:{type:String},searchable:{type:Boolean,default:!0},clearOnSelect:{type:Boolean,default:!0},hideSelected:{type:Boolean,default:!1},placeholder:{type:String,default:"Select option"},allowEmpty:{type:Boolean,default:!0},resetAfter:{type:Boolean,default:!1},closeOnSelect:{type:Boolean,default:!0},customLabel:{type:Function,default:function(e,t){return t?e[t]:e}},taggable:{type:Boolean,default:!1},tagPlaceholder:{type:String,default:"Press enter to create a tag"},max:{type:Number},id:{default:null},optionsLimit:{type:Number,default:1e3},groupValues:{type:String},groupLabel:{type:String},blockKeys:{type:Array,default:function(){return[]}}},mounted:function(){this.multiple||this.clearOnSelect||console.warn("[Vue-Multiselect warn]: ClearOnSelect and Multiple props can’t be both set to false.")},computed:{filteredOptions:function(){var e=this.search||"",t=e.toLowerCase(),i=this.options.concat();return this.internalSearch?(i=this.groupValues?this.filterAndFlat(i,t,this.label):o(i,t,this.label),i=this.hideSelected?i.filter(this.isNotSelected):i):i=this.groupValues?a(this.groupValues,this.groupLabel)(i):i,this.taggable&&t.length&&!this.isExistingOption(t)&&i.unshift({isTag:!0,label:e}),i.slice(0,this.optionsLimit)},valueKeys:function(){var e=this;return this.trackBy?this.internalValue.map(function(t){return t[e.trackBy]}):this.internalValue},optionKeys:function(){var e=this,t=this.groupValues?this.flatAndStrip(this.options):this.options;return this.label?t.map(function(t){return t[e.label].toString().toLowerCase()}):t.map(function(e){return e.toString().toLowerCase()})},currentOptionLabel:function(){return this.multiple?this.searchable?"":this.placeholder:this.internalValue[0]?this.getOptionLabel(this.internalValue[0]):this.searchable?"":this.placeholder}},watch:{internalValue:function(e,t){this.resetAfter&&this.internalValue.length&&(this.search="",this.internalValue=[])},search:function(){this.$emit("search-change",this.search,this.id)},value:function(e){this.internalValue=(0,p.default)(Array.isArray(e)?e:[e])}},methods:{getValue:function(){return this.multiple?(0,p.default)(this.internalValue):(0,p.default)(this.internalValue[0])},filterAndFlat:function(e){return f(u(this.search,this.label,this.groupValues,this.groupLabel),a(this.groupValues,this.groupLabel))(e)},flatAndStrip:function(e){return f(a(this.groupValues,this.groupLabel),r)(e)},updateSearch:function(e){this.search=e},isExistingOption:function(e){return!!this.options&&this.optionKeys.indexOf(e)>-1},isSelected:function(e){var t=this.trackBy?e[this.trackBy]:e;return this.valueKeys.indexOf(t)>-1},isNotSelected:function(e){return!this.isSelected(e)},getOptionLabel:function(e){return e||0===e?e.isTag?e.label:this.customLabel(e,this.label)||"":""},select:function(e,t){if(!(this.blockKeys.indexOf(t)!==-1||this.disabled||e.$isLabel||this.max&&this.multiple&&this.internalValue.length===this.max)){if(e.isTag)this.$emit("tag",e.label,this.id),this.search="",this.closeOnSelect&&!this.multiple&&this.deactivate();else{var i=this.isSelected(e);if(i)return void("Tab"!==t&&this.removeElement(e));this.multiple?this.internalValue.push(e):this.internalValue=[e],this.$emit("select",(0,p.default)(e),this.id),this.$emit("input",this.getValue(),this.id),this.clearOnSelect&&(this.search="")}this.closeOnSelect&&this.deactivate()}},removeElement:function(e){if(!this.disabled&&(this.allowEmpty||!(this.internalValue.length<=1))){var t="object"===("undefined"==typeof e?"undefined":c(e))?this.valueKeys.indexOf(e[this.trackBy]):this.valueKeys.indexOf(e);this.internalValue.splice(t,1),this.$emit("remove",(0,p.default)(e),this.id),this.$emit("input",this.getValue(),this.id),this.closeOnSelect&&this.deactivate()}},removeLastElement:function(){this.blockKeys.indexOf("Delete")===-1&&0===this.search.length&&Array.isArray(this.internalValue)&&this.removeElement(this.internalValue[this.internalValue.length-1])},activate:function(){this.isOpen||this.disabled||(this.adjustPosition(),this.groupValues&&0===this.pointer&&this.filteredOptions.length&&(this.pointer=1),this.isOpen=!0,this.searchable?(this.search="",this.$refs.search.focus()):this.$el.focus(),this.$emit("open",this.id))},deactivate:function(){this.isOpen&&(this.isOpen=!1,this.searchable?this.$refs.search.blur():this.$el.blur(),this.search="",this.$emit("close",this.getValue(),this.id))},toggle:function(){this.isOpen?this.deactivate():this.activate()},adjustPosition:function(){"undefined"!=typeof window&&(this.hasEnoughSpace=this.$el.getBoundingClientRect().top+this.maxHeight<window.innerHeight)}}}},function(e,t,i){"use strict";Object.defineProperty(t,"__esModule",{value:!0}),t.default={data:function(){return{pointer:0,visibleElements:this.maxHeight/this.optionHeight}},props:{showPointer:{type:Boolean,default:!0},optionHeight:{type:Number,default:40}},computed:{pointerPosition:function(){return this.pointer*this.optionHeight}},watch:{filteredOptions:function(){this.pointerAdjust()}},methods:{optionHighlight:function(e,t){return{"multiselect__option--highlight":e===this.pointer&&this.showPointer,"multiselect__option--selected":this.isSelected(t)}},addPointerElement:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"Enter",t=e.key;this.filteredOptions.length>0&&this.select(this.filteredOptions[this.pointer],t),this.pointerReset()},pointerForward:function(){this.pointer<this.filteredOptions.length-1&&(this.pointer++,this.$refs.list.scrollTop<=this.pointerPosition-this.visibleElements*this.optionHeight&&(this.$refs.list.scrollTop=this.pointerPosition-(this.visibleElements-1)*this.optionHeight),this.filteredOptions[this.pointer].$isLabel&&this.pointerForward())},pointerBackward:function(){this.pointer>0?(this.pointer--,this.$refs.list.scrollTop>=this.pointerPosition&&(this.$refs.list.scrollTop=this.pointerPosition),this.filteredOptions[this.pointer].$isLabel&&this.pointerBackward()):this.filteredOptions[0].$isLabel&&this.pointerForward()},pointerReset:function(){this.closeOnSelect&&(this.pointer=0,this.$refs.list&&(this.$refs.list.scrollTop=0))},pointerAdjust:function(){this.pointer>=this.filteredOptions.length-1&&(this.pointer=this.filteredOptions.length?this.filteredOptions.length-1:0)},pointerSet:function(e){this.pointer=e}}}},function(e,t,i){"use strict";function n(e){if(Array.isArray(e))return e.map(n);if(e&&"object"===("undefined"==typeof e?"undefined":s(e))){for(var t={},i=Object.keys(e),l=0,o=i.length;l<o;l++){var r=i[l];t[r]=n(e[r])}return t}return e}Object.defineProperty(t,"__esModule",{value:!0});var s="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e};t.default=n},function(e,t,i){i(5);var n=i(6)(i(4),i(7),null,null);e.exports=n.exports},function(e,t,i){"use strict";function n(e){return e&&e.__esModule?e:{default:e}}Object.defineProperty(t,"__esModule",{value:!0});var s=i(0),l=n(s),o=i(1),r=n(o);t.default={name:"vue-multiselect",mixins:[l.default,r.default],props:{selectLabel:{type:String,default:"Press enter to select"},selectedLabel:{type:String,default:"Selected"},deselectLabel:{type:String,default:"Press enter to remove"},showLabels:{type:Boolean,default:!0},limit:{type:Number,default:99999},maxHeight:{type:Number,default:300},limitText:{type:Function,default:function(e){return"and "+e+" more"}},loading:{type:Boolean,default:!1},disabled:{type:Boolean,default:!1}},computed:{visibleValue:function(){return this.multiple?this.internalValue.slice(0,this.limit):[]},deselectLabelText:function(){return this.showLabels?this.deselectLabel:""},selectLabelText:function(){return this.showLabels?this.selectLabel:""},selectedLabelText:function(){return this.showLabels?this.selectedLabel:""}}}},function(e,t){},function(e,t){e.exports=function(e,t,i,n){var s,l=e=e||{},o=typeof e.default;"object"!==o&&"function"!==o||(s=e,l=e.default);var r="function"==typeof l?l.options:l;if(t&&(r.render=t.render,r.staticRenderFns=t.staticRenderFns),i&&(r._scopeId=i),n){var a=r.computed||(r.computed={});Object.keys(n).forEach(function(e){var t=n[e];a[e]=function(){return t}})}return{esModule:s,exports:l,options:r}}},function(e,t){e.exports={render:function(){var e=this,t=e.$createElement,i=e._self._c||t;return i("div",{staticClass:"multiselect",class:{"multiselect--active":e.isOpen,"multiselect--disabled":e.disabled,"multiselect--above":!e.hasEnoughSpace},attrs:{tabindex:e.searchable?-1:0},on:{focus:function(t){e.activate()},blur:function(t){!e.searchable&&e.deactivate()},keydown:[function(t){e._k(t.keyCode,"down",40)||t.target===t.currentTarget&&(t.preventDefault(),e.pointerForward())},function(t){e._k(t.keyCode,"up",38)||t.target===t.currentTarget&&(t.preventDefault(),e.pointerBackward())},function(t){e._k(t.keyCode,"enter",13)&&e._k(t.keyCode,"tab",9)||(t.stopPropagation(),t.target===t.currentTarget&&e.addPointerElement(t))}],keyup:function(t){e._k(t.keyCode,"esc",27)||e.deactivate()}}},[e._t("carret",[i("div",{staticClass:"multiselect__select",on:{mousedown:function(t){t.preventDefault(),e.toggle()}}})]),e._v(" "),i("div",{ref:"tags",staticClass:"multiselect__tags"},[e._l(e.visibleValue,function(t){return i("span",{staticClass:"multiselect__tag",on:{mousedown:function(e){e.preventDefault()}}},[i("span",{domProps:{textContent:e._s(e.getOptionLabel(t))}}),e._v(" "),i("i",{staticClass:"multiselect__tag-icon",attrs:{"aria-hidden":"true",tabindex:"1"},on:{keydown:function(i){e._k(i.keyCode,"enter",13)||(i.preventDefault(),e.removeElement(t))},mousedown:function(i){i.preventDefault(),e.removeElement(t)}}})])}),e._v(" "),e.internalValue&&e.internalValue.length>e.limit?[i("strong",{domProps:{textContent:e._s(e.limitText(e.internalValue.length-e.limit))}})]:e._e(),e._v(" "),i("transition",{attrs:{name:"multiselect__loading"}},[e._t("loading",[i("div",{directives:[{name:"show",rawName:"v-show",value:e.loading,expression:"loading"}],staticClass:"multiselect__spinner"})])],2),e._v(" "),e.searchable?i("input",{ref:"search",staticClass:"multiselect__input",attrs:{type:"text",autocomplete:"off",placeholder:e.placeholder,disabled:e.disabled},domProps:{value:e.isOpen?e.search:e.currentOptionLabel},on:{input:function(t){e.updateSearch(t.target.value)},focus:function(t){t.preventDefault(),e.activate()},blur:function(t){t.preventDefault(),e.deactivate()},keyup:function(t){e._k(t.keyCode,"esc",27)||e.deactivate()},keydown:[function(t){e._k(t.keyCode,"down",40)||(t.preventDefault(),e.pointerForward())},function(t){e._k(t.keyCode,"up",38)||(t.preventDefault(),e.pointerBackward())},function(t){e._k(t.keyCode,"enter",13)||t.preventDefault()},function(t){e._k(t.keyCode,"enter",13)&&e._k(t.keyCode,"tab",9)||(t.stopPropagation(),t.target===t.currentTarget&&e.addPointerElement(t))},function(t){e._k(t.keyCode,"delete",[8,46])||e.removeLastElement()}]}}):e._e(),e._v(" "),e.searchable?e._e():i("span",{staticClass:"multiselect__single",domProps:{textContent:e._s(e.currentOptionLabel)}})],2),e._v(" "),i("transition",{attrs:{name:"multiselect"}},[i("ul",{directives:[{name:"show",rawName:"v-show",value:e.isOpen,expression:"isOpen"}],ref:"list",staticClass:"multiselect__content",style:{maxHeight:e.maxHeight+"px"}},[e._t("beforeList"),e._v(" "),e.multiple&&e.max===e.internalValue.length?i("li",[i("span",{staticClass:"multiselect__option"},[e._t("maxElements",[e._v("Maximum of "+e._s(e.max)+" options selected. First remove a selected option to select another.")])],2)]):e._e(),e._v(" "),!e.max||e.internalValue.length<e.max?e._l(e.filteredOptions,function(t,n){return i("li",{key:n,staticClass:"multiselect__element"},[t.$isLabel?e._e():i("span",{staticClass:"multiselect__option",class:e.optionHighlight(n,t),attrs:{tabindex:"0","data-select":t.isTag?e.tagPlaceholder:e.selectLabelText,"data-selected":e.selectedLabelText,"data-deselect":e.deselectLabelText},on:{mousedown:function(i){i.preventDefault(),e.select(t)},mouseenter:function(t){e.pointerSet(n)}}},[e._t("option",[i("span",[e._v(e._s(e.getOptionLabel(t)))])],{option:t,search:e.search})],2),e._v(" "),t.$isLabel?i("span",{staticClass:"multiselect__option multiselect__option--disabled",class:e.optionHighlight(n,t)},[e._v("\n              "+e._s(t.$groupLabel)+"\n            ")]):e._e()])}):e._e(),e._v(" "),i("li",{directives:[{name:"show",rawName:"v-show",value:0===e.filteredOptions.length&&e.search&&!e.loading,expression:"filteredOptions.length === 0 && search && !loading"}]},[i("span",{staticClass:"multiselect__option"},[e._t("noResult",[e._v("No elements found. Consider changing the search query.")])],2)]),e._v(" "),e._t("afterList")],2)])],2)},staticRenderFns:[]}},function(e,t,i){"use strict";function n(e){return e&&e.__esModule?e:{default:e}}Object.defineProperty(t,"__esModule",{value:!0}),t.deepClone=t.pointerMixin=t.multiselectMixin=t.Multiselect=void 0;var s=i(3),l=n(s),o=i(0),r=n(o),a=i(1),u=n(a),c=i(2),h=n(c);t.default=l.default,t.Multiselect=l.default,t.multiselectMixin=r.default,t.pointerMixin=u.default,t.deepClone=h.default}])});
+!function(e,t){ true?module.exports=t():"function"==typeof define&&define.amd?define([],t):"object"==typeof exports?exports.VueMultiselect=t():e.VueMultiselect=t()}(this,function(){return function(e){function t(n){if(i[n])return i[n].exports;var o=i[n]={exports:{},id:n,loaded:!1};return e[n].call(o.exports,o,o.exports,t),o.loaded=!0,o.exports}var i={};return t.m=e,t.c=i,t.p="/",t(0)}([function(e,t,i){"use strict";function n(e){return e&&e.__esModule?e:{default:e}}Object.defineProperty(t,"__esModule",{value:!0}),t.deepClone=t.pointerMixin=t.multiselectMixin=t.Multiselect=void 0;var o=i(7),l=n(o),s=i(1),r=n(s),a=i(2),u=n(a),c=i(3),p=n(c);t.default=l.default,t.Multiselect=l.default,t.multiselectMixin=r.default,t.pointerMixin=u.default,t.deepClone=p.default},function(e,t,i){"use strict";function n(e){return e&&e.__esModule?e:{default:e}}function o(e,t,i){return t in e?Object.defineProperty(e,t,{value:i,enumerable:!0,configurable:!0,writable:!0}):e[t]=i,e}function l(e,t){if(!e)return!1;var i=e.toString().toLowerCase();return i.indexOf(t)!==-1}function s(e,t,i){return i?e.filter(function(e){return l(e[i],t)}):e.filter(function(e){return l(e,t)})}function r(e){return e.filter(function(e){return!e.$isLabel})}function a(e,t){return function(i){return i.reduce(function(i,n){return n[e]&&n[e].length?(i.push({$groupLabel:n[t],$isLabel:!0}),i.concat(n[e])):i.concat(n)},[])}}function u(e,t,i,n){return function(l){return l.map(function(l){var r,a=s(l[i],e,t);return a.length?(r={},o(r,n,l[n]),o(r,i,a),r):[]})}}var c="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},p=i(3),d=n(p),h=function(){for(var e=arguments.length,t=Array(e),i=0;i<e;i++)t[i]=arguments[i];return function(e){return t.reduce(function(e,t){return t(e)},e)}};e.exports={data:function(){return{search:"",isOpen:!1,internalValue:this.value||0===this.value?(0,d.default)(this.value):this.multiple?[]:null}},props:{internalSearch:{type:Boolean,default:!0},options:{type:Array,required:!0},multiple:{type:Boolean,default:!1},value:{type:null,default:null},trackBy:{type:String},label:{type:String},searchable:{type:Boolean,default:!0},clearOnSelect:{type:Boolean,default:!0},hideSelected:{type:Boolean,default:!1},placeholder:{type:String,default:"Select option"},allowEmpty:{type:Boolean,default:!0},resetAfter:{type:Boolean,default:!1},closeOnSelect:{type:Boolean,default:!0},customLabel:{type:Function,default:function(e,t){return t?e[t]:e}},taggable:{type:Boolean,default:!1},tagPlaceholder:{type:String,default:"Press enter to create a tag"},max:{type:Number},id:{default:null},optionsLimit:{type:Number,default:1e3},groupValues:{type:String},groupLabel:{type:String},blockKeys:{type:Array,default:function(){return[]}}},created:function(){this.searchable&&this.adjustSearch()},computed:{filteredOptions:function(){var e=this.search.toLowerCase()||"",t=this.options;return this.internalSearch&&(t=this.groupValues?this.filterAndFlat(t,e,this.label):s(t,e,this.label),t=this.hideSelected?t.filter(this.isNotSelected):t),this.taggable&&e.length&&!this.isExistingOption(e)&&t.unshift({isTag:!0,label:e}),t.slice(0,this.optionsLimit)},valueKeys:function(){var e=this;return this.trackBy?this.multiple?this.internalValue.map(function(t){return t[e.trackBy]}):this.internalValue[this.trackBy]:this.internalValue},optionKeys:function(){var e=this,t=this.groupValues?this.flatAndStrip(this.options):this.options;return this.label?t.map(function(t){return t[e.label].toString().toLowerCase()}):t.map(function(e){return e.toString().toLowerCase()})},currentOptionLabel:function(){return this.getOptionLabel(this.internalValue)+""}},watch:{internalValue:function(){this.resetAfter&&(this.internalValue=null,this.search=""),this.adjustSearch()},search:function(){this.search!==this.currentOptionLabel&&this.$emit("search-change",this.search,this.id)},value:function(){this.internalValue=(0,d.default)(this.value)}},methods:{filterAndFlat:function(e){return h(u(this.search,this.label,this.groupValues,this.groupLabel),a(this.groupValues,this.groupLabel))(e)},flatAndStrip:function(e){return h(a(this.groupValues,this.groupLabel),r)(e)},updateSearch:function(e){this.search=e.trim().toString()},isExistingOption:function(e){return!!this.options&&this.optionKeys.indexOf(e)>-1},isSelected:function(e){if(!this.internalValue)return!1;var t=this.trackBy?e[this.trackBy]:e;return this.multiple?this.valueKeys.indexOf(t)>-1:this.valueKeys===t},isNotSelected:function(e){return!this.isSelected(e)},getOptionLabel:function(e){return e||0===e?e.isTag?e.label:this.customLabel(e,this.label)||"":""},select:function(e,t){if(this.blockKeys.indexOf(t)===-1&&!this.disabled&&!(this.max&&this.multiple&&this.internalValue.length===this.max||e.$isLabel))if(e.isTag)this.$emit("tag",e.label,this.id),this.search="";else{if(this.multiple){if(this.isSelected(e))return void("Tab"!==t&&this.removeElement(e));this.internalValue.push(e)}else{var i=this.isSelected(e);if(i&&(!this.allowEmpty||"Tab"===t))return;this.internalValue=i?null:e}this.$emit("select",(0,d.default)(e),this.id),this.$emit("input",(0,d.default)(this.internalValue),this.id),this.closeOnSelect&&this.deactivate()}},removeElement:function(e){if(!this.disabled&&(this.allowEmpty||!(this.internalValue.length<=1))){var t=this.multiple&&"object"===("undefined"==typeof e?"undefined":c(e))?this.valueKeys.indexOf(e[this.trackBy]):this.valueKeys.indexOf(e);this.internalValue.splice(t,1),this.$emit("remove",(0,d.default)(e),this.id),this.$emit("input",(0,d.default)(this.internalValue),this.id)}},removeLastElement:function(){this.blockKeys.indexOf("Delete")===-1&&0===this.search.length&&Array.isArray(this.internalValue)&&this.removeElement(this.internalValue[this.internalValue.length-1])},activate:function(){this.isOpen||this.disabled||(this.isOpen=!0,this.searchable?(this.search="",this.$refs.search.focus()):this.$el.focus(),this.$emit("open",this.id))},deactivate:function(){this.isOpen&&(this.isOpen=!1,this.searchable?(this.$refs.search.blur(),this.adjustSearch()):this.$el.blur(),this.$emit("close",(0,d.default)(this.internalValue),this.id))},adjustSearch:function(){this.searchable&&this.clearOnSelect&&(this.search=this.multiple?"":this.currentOptionLabel)},toggle:function(){this.isOpen?this.deactivate():this.activate()}}}},function(e,t){"use strict";e.exports={data:function(){return{pointer:0,visibleElements:this.maxHeight/this.optionHeight}},props:{showPointer:{type:Boolean,default:!0},optionHeight:{type:Number,default:40}},computed:{pointerPosition:function(){return this.pointer*this.optionHeight}},watch:{filteredOptions:function(){this.pointerAdjust()}},methods:{optionHighlight:function(e,t){return{"multiselect__option--highlight":e===this.pointer&&this.showPointer,"multiselect__option--selected":this.isSelected(t)}},addPointerElement:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"Enter",t=e.key;this.filteredOptions[this.pointer].isLabel||(this.filteredOptions.length>0&&this.select(this.filteredOptions[this.pointer],t),this.pointerReset())},pointerForward:function(){this.pointer<this.filteredOptions.length-1&&(this.pointer++,this.$refs.list.scrollTop<=this.pointerPosition-this.visibleElements*this.optionHeight&&(this.$refs.list.scrollTop=this.pointerPosition-(this.visibleElements-1)*this.optionHeight),this.filteredOptions[this.pointer].$isLabel&&this.pointerForward())},pointerBackward:function(){this.pointer>0?(this.pointer--,this.$refs.list.scrollTop>=this.pointerPosition&&(this.$refs.list.scrollTop=this.pointerPosition),this.filteredOptions[this.pointer].$isLabel&&this.pointerBackward()):this.filteredOptions[0].$isLabel&&this.pointerForward()},pointerReset:function(){this.closeOnSelect&&(this.pointer=0,this.$refs.list&&(this.$refs.list.scrollTop=0))},pointerAdjust:function(){this.pointer>=this.filteredOptions.length-1&&(this.pointer=this.filteredOptions.length?this.filteredOptions.length-1:0)},pointerSet:function(e){this.pointer=e}}}},function(e,t){"use strict";var i="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},n=function e(t){if(Array.isArray(t))return t.map(e);if(t&&"object"===("undefined"==typeof t?"undefined":i(t))){for(var n={},o=Object.keys(t),l=0,s=o.length;l<s;l++){var r=o[l];n[r]=e(t[r])}return n}return t};e.exports=n},function(e,t,i){"use strict";function n(e){return e&&e.__esModule?e:{default:e}}Object.defineProperty(t,"__esModule",{value:!0});var o=i(1),l=n(o),s=i(2),r=n(s);t.default={name:"vue-multiselect",mixins:[l.default,r.default],props:{selectLabel:{type:String,default:"Press enter to select"},selectedLabel:{type:String,default:"Selected"},deselectLabel:{type:String,default:"Press enter to remove"},showLabels:{type:Boolean,default:!0},limit:{type:Number,default:99999},maxHeight:{type:Number,default:300},limitText:{type:Function,default:function(e){return"and "+e+" more"}},loading:{type:Boolean,default:!1},disabled:{type:Boolean,default:!1}},computed:{visibleValue:function(){return this.multiple?this.internalValue.slice(0,this.limit):[]},deselectLabelText:function(){return this.showLabels?this.deselectLabel:""},selectLabelText:function(){return this.showLabels?this.selectLabel:""},selectedLabelText:function(){return this.showLabels?this.selectedLabel:""}}}},function(e,t,i){t=e.exports=i(6)(),t.push([e.id,'fieldset[disabled] .multiselect{pointer-events:none}.multiselect__spinner{position:absolute;right:1px;top:1px;width:48px;height:35px;background:#fff;display:block}.multiselect__spinner:after,.multiselect__spinner:before{position:absolute;content:"";top:50%;left:50%;margin:-8px 0 0 -8px;width:16px;height:16px;border-radius:100%;border-color:#41b883 transparent transparent;border-style:solid;border-width:2px;box-shadow:0 0 0 1px transparent}.multiselect__spinner:before{animation:spinning 2.4s cubic-bezier(.41,.26,.2,.62);animation-iteration-count:infinite}.multiselect__spinner:after{animation:spinning 2.4s cubic-bezier(.51,.09,.21,.8);animation-iteration-count:infinite}.multiselect__loading-enter-active,.multiselect__loading-leave-active{transition:opacity .4s ease-in-out;opacity:1}.multiselect__loading-enter,.multiselect__loading-leave-active{opacity:0}.multiselect,.multiselect__input,.multiselect__single{font-family:inherit;font-size:14px;-ms-touch-action:manipulation;touch-action:manipulation}.multiselect{box-sizing:content-box;display:block;position:relative;width:100%;min-height:40px;text-align:left;color:#35495e}.multiselect *{box-sizing:border-box}.multiselect:focus{outline:none}.multiselect--disabled{pointer-events:none;opacity:.6}.multiselect--active{z-index:50}.multiselect--active .multiselect__current,.multiselect--active .multiselect__input,.multiselect--active .multiselect__tags{border-bottom-left-radius:0;border-bottom-right-radius:0}.multiselect--active .multiselect__select{transform:rotate(180deg)}.multiselect__input,.multiselect__single{position:relative;display:inline-block;min-height:20px;line-height:20px;border:none;border-radius:5px;background:#fff;padding:1px 0 0 5px;width:100%;transition:border .1s ease;box-sizing:border-box;margin-bottom:8px}.multiselect__tag~.multiselect__input,.multiselect__tag~.multiselect__single{width:auto}.multiselect__input:hover,.multiselect__single:hover{border-color:#cfcfcf}.multiselect__input:focus,.multiselect__single:focus{border-color:#a8a8a8;outline:none}.multiselect__single{padding-left:6px;margin-bottom:8px}.multiselect__tags{min-height:40px;display:block;padding:8px 40px 0 8px;border-radius:5px;border:1px solid #e8e8e8;background:#fff}.multiselect__tag{position:relative;display:inline-block;padding:4px 26px 4px 10px;border-radius:5px;margin-right:10px;color:#fff;line-height:1;background:#41b883;margin-bottom:8px;white-space:nowrap}.multiselect__tag-icon{cursor:pointer;margin-left:7px;position:absolute;right:0;top:0;bottom:0;font-weight:700;font-style:normal;width:22px;text-align:center;line-height:22px;transition:all .2s ease;border-radius:5px}.multiselect__tag-icon:after{content:"\\D7";color:#266d4d;font-size:14px}.multiselect__tag-icon:focus,.multiselect__tag-icon:hover{background:#369a6e}.multiselect__tag-icon:focus:after,.multiselect__tag-icon:hover:after{color:#fff}.multiselect__current{min-height:40px;overflow:hidden;padding:8px 12px 0;padding-right:30px;white-space:nowrap;border-radius:5px;border:1px solid #e8e8e8}.multiselect__current,.multiselect__select{line-height:16px;box-sizing:border-box;display:block;margin:0;text-decoration:none;cursor:pointer}.multiselect__select{position:absolute;width:40px;height:38px;right:1px;top:1px;padding:4px 8px;text-align:center;transition:transform .2s ease}.multiselect__select:before{position:relative;right:0;top:65%;color:#999;margin-top:4px;border-style:solid;border-width:5px 5px 0;border-color:#999 transparent transparent;content:""}.multiselect__placeholder{color:#adadad;display:inline-block;margin-bottom:10px;padding-top:2px}.multiselect--active .multiselect__placeholder{display:none}.multiselect__content{position:absolute;list-style:none;display:block;background:#fff;width:100%;max-height:240px;overflow:auto;padding:0;margin:0;border:1px solid #e8e8e8;border-top:none;border-bottom-left-radius:5px;border-bottom-right-radius:5px;z-index:50}.multiselect__content::webkit-scrollbar{display:none}.multiselect__element{display:block}.multiselect__option{display:block;padding:12px;min-height:40px;line-height:16px;text-decoration:none;text-transform:none;vertical-align:middle;position:relative;cursor:pointer;white-space:nowrap}.multiselect__option:after{top:0;right:0;position:absolute;line-height:40px;padding-right:12px;padding-left:20px}.multiselect__option--highlight{background:#41b883;outline:none;color:#fff}.multiselect__option--highlight:after{content:attr(data-select);background:#41b883;color:#fff}.multiselect__option--selected{background:#f3f3f3;color:#35495e;font-weight:700}.multiselect__option--selected:after{content:attr(data-selected);color:silver}.multiselect__option--selected.multiselect__option--highlight{background:#ff6a6a;color:#fff}.multiselect__option--selected.multiselect__option--highlight:after{background:#ff6a6a;content:attr(data-deselect);color:#fff}.multiselect--disabled{background:#ededed;pointer-events:none}.multiselect--disabled .multiselect__current,.multiselect--disabled .multiselect__select,.multiselect__option--disabled{background:#ededed;color:#a6a6a6}.multiselect__option--disabled{cursor:text;pointer-events:none}.multiselect__option--disabled.multiselect__option--highlight{background:#dedede!important}.multiselect-enter-active,.multiselect-leave-active{transition:all .3s ease}.multiselect-enter,.multiselect-leave-active{opacity:0}@keyframes spinning{0%{transform:rotate(0)}to{transform:rotate(2turn)}}',""])},function(e,t){e.exports=function(){var e=[];return e.toString=function(){for(var e=[],t=0;t<this.length;t++){var i=this[t];i[2]?e.push("@media "+i[2]+"{"+i[1]+"}"):e.push(i[1])}return e.join("")},e.i=function(t,i){"string"==typeof t&&(t=[[null,t,""]]);for(var n={},o=0;o<this.length;o++){var l=this[o][0];"number"==typeof l&&(n[l]=!0)}for(o=0;o<t.length;o++){var s=t[o];"number"==typeof s[0]&&n[s[0]]||(i&&!s[2]?s[2]=i:i&&(s[2]="("+s[2]+") and ("+i+")"),e.push(s))}},e}},function(e,t,i){var n,o;i(10),n=i(4);var l=i(8);o=n=n||{},"object"!=typeof n.default&&"function"!=typeof n.default||(o=n=n.default),"function"==typeof o&&(o=o.options),o.render=l.render,o.staticRenderFns=l.staticRenderFns,e.exports=n},function(e,t){e.exports={render:function(){var e=this,t=e.$createElement,i=e._self._c||t;return i("div",{staticClass:"multiselect",class:{"multiselect--active":e.isOpen,"multiselect--disabled":e.disabled},attrs:{tabindex:e.searchable?-1:0},on:{focus:function(t){e.activate()},blur:function(t){!e.searchable&&e.deactivate()},keydown:[function(t){e._k(t.keyCode,"down",40)||t.target===t.currentTarget&&(t.preventDefault(),e.pointerForward())},function(t){e._k(t.keyCode,"up",38)||t.target===t.currentTarget&&(t.preventDefault(),e.pointerBackward())},function(t){e._k(t.keyCode,"enter",13)&&e._k(t.keyCode,"tab",9)||(t.stopPropagation(),t.target===t.currentTarget&&e.addPointerElement(t))}],keyup:function(t){e._k(t.keyCode,"esc",27)||e.deactivate()}}},[i("div",{staticClass:"multiselect__select",on:{mousedown:function(t){t.preventDefault(),e.toggle()}}}),e._v(" "),i("div",{ref:"tags",staticClass:"multiselect__tags"},[e._l(e.visibleValue,function(t){return i("span",{staticClass:"multiselect__tag",attrs:{onmousedown:"event.preventDefault()"}},[i("span",{domProps:{textContent:e._s(e.getOptionLabel(t))}}),e._v(" "),i("i",{staticClass:"multiselect__tag-icon",attrs:{"aria-hidden":"true",tabindex:"1"},on:{keydown:function(i){e._k(i.keyCode,"enter",13)||(i.preventDefault(),e.removeElement(t))},mousedown:function(i){i.preventDefault(),e.removeElement(t)}}})])}),e._v(" "),e.internalValue&&e.internalValue.length>e.limit?[i("strong",{domProps:{textContent:e._s(e.limitText(e.internalValue.length-e.limit))}})]:e._e(),e._v(" "),i("transition",{attrs:{name:"multiselect__loading"}},[i("div",{directives:[{name:"show",rawName:"v-show",value:e.loading,expression:"loading"}],staticClass:"multiselect__spinner"})]),e._v(" "),e.searchable?i("input",{ref:"search",staticClass:"multiselect__input",attrs:{type:"text",autocomplete:"off",placeholder:e.placeholder,disabled:e.disabled},domProps:{value:e.search},on:{input:function(t){e.updateSearch(t.target.value)},focus:function(t){t.preventDefault(),e.activate()},blur:function(t){t.preventDefault(),e.deactivate()},keyup:function(t){e._k(t.keyCode,"esc",27)||e.deactivate()},keydown:[function(t){e._k(t.keyCode,"down",40)||(t.preventDefault(),e.pointerForward())},function(t){e._k(t.keyCode,"up",38)||(t.preventDefault(),e.pointerBackward())},function(t){e._k(t.keyCode,"enter",13)&&e._k(t.keyCode,"tab",9)||(t.stopPropagation(),t.target===t.currentTarget&&e.addPointerElement(t))},function(t){e._k(t.keyCode,"delete",[8,46])||e.removeLastElement()}]}}):e._e(),e._v(" "),e.searchable?e._e():i("span",{staticClass:"multiselect__single",domProps:{textContent:e._s(e.currentOptionLabel||e.placeholder)}})],2),e._v(" "),i("transition",{attrs:{name:"multiselect"}},[i("ul",{directives:[{name:"show",rawName:"v-show",value:e.isOpen,expression:"isOpen"}],ref:"list",staticClass:"multiselect__content",style:{maxHeight:e.maxHeight+"px"}},[e._t("beforeList"),e._v(" "),e.multiple&&e.max===e.internalValue.length?i("li",[i("span",{staticClass:"multiselect__option"},[e._t("maxElements",[e._v("Maximum of "+e._s(e.max)+" options selected. First remove a selected option to select another.")])],2)]):e._e(),e._v(" "),!e.max||e.internalValue.length<e.max?e._l(e.filteredOptions,function(t,n){return i("li",{key:n,staticClass:"multiselect__element"},[t.$isLabel?e._e():i("span",{staticClass:"multiselect__option",class:e.optionHighlight(n,t),attrs:{tabindex:"0","data-select":t.isTag?e.tagPlaceholder:e.selectLabelText,"data-selected":e.selectedLabelText,"data-deselect":e.deselectLabelText},on:{mousedown:function(i){i.preventDefault(),e.select(t)},mouseenter:function(t){e.pointerSet(n)}}},[e._t("option",[i("span",[e._v(e._s(e.getOptionLabel(t)))])],{option:t,search:e.search})],2),e._v(" "),t.$isLabel?i("span",{staticClass:"multiselect__option multiselect__option--disabled",class:e.optionHighlight(n,t)},[e._v("\n              "+e._s(t.$groupLabel)+"\n            ")]):e._e()])}):e._e(),e._v(" "),i("li",{directives:[{name:"show",rawName:"v-show",value:0===e.filteredOptions.length&&e.search,expression:"filteredOptions.length === 0 && search"}]},[i("span",{staticClass:"multiselect__option"},[e._t("noResult",[e._v("No elements found. Consider changing the search query.")])],2)]),e._v(" "),e._t("afterList")],2)])],1)},staticRenderFns:[]}},function(e,t,i){function n(e,t){for(var i=0;i<e.length;i++){var n=e[i],o=p[n.id];if(o){o.refs++;for(var l=0;l<o.parts.length;l++)o.parts[l](n.parts[l]);for(;l<n.parts.length;l++)o.parts.push(a(n.parts[l],t))}else{for(var s=[],l=0;l<n.parts.length;l++)s.push(a(n.parts[l],t));p[n.id]={id:n.id,refs:1,parts:s}}}}function o(e){for(var t=[],i={},n=0;n<e.length;n++){var o=e[n],l=o[0],s=o[1],r=o[2],a=o[3],u={css:s,media:r,sourceMap:a};i[l]?i[l].parts.push(u):t.push(i[l]={id:l,parts:[u]})}return t}function l(e,t){var i=f(),n=b[b.length-1];if("top"===e.insertAt)n?n.nextSibling?i.insertBefore(t,n.nextSibling):i.appendChild(t):i.insertBefore(t,i.firstChild),b.push(t);else{if("bottom"!==e.insertAt)throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");i.appendChild(t)}}function s(e){e.parentNode.removeChild(e);var t=b.indexOf(e);t>=0&&b.splice(t,1)}function r(e){var t=document.createElement("style");return t.type="text/css",l(e,t),t}function a(e,t){var i,n,o;if(t.singleton){var l=g++;i=m||(m=r(t)),n=u.bind(null,i,l,!1),o=u.bind(null,i,l,!0)}else i=r(t),n=c.bind(null,i),o=function(){s(i)};return n(e),function(t){if(t){if(t.css===e.css&&t.media===e.media&&t.sourceMap===e.sourceMap)return;n(e=t)}else o()}}function u(e,t,i,n){var o=i?"":n.css;if(e.styleSheet)e.styleSheet.cssText=_(t,o);else{var l=document.createTextNode(o),s=e.childNodes;s[t]&&e.removeChild(s[t]),s.length?e.insertBefore(l,s[t]):e.appendChild(l)}}function c(e,t){var i=t.css,n=t.media,o=t.sourceMap;if(n&&e.setAttribute("media",n),o&&(i+="\n/*# sourceURL="+o.sources[0]+" */",i+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(o))))+" */"),e.styleSheet)e.styleSheet.cssText=i;else{for(;e.firstChild;)e.removeChild(e.firstChild);e.appendChild(document.createTextNode(i))}}var p={},d=function(e){var t;return function(){return"undefined"==typeof t&&(t=e.apply(this,arguments)),t}},h=d(function(){return/msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase())}),f=d(function(){return document.head||document.getElementsByTagName("head")[0]}),m=null,g=0,b=[];e.exports=function(e,t){t=t||{},"undefined"==typeof t.singleton&&(t.singleton=h()),"undefined"==typeof t.insertAt&&(t.insertAt="bottom");var i=o(e);return n(i,t),function(e){for(var l=[],s=0;s<i.length;s++){var r=i[s],a=p[r.id];a.refs--,l.push(a)}if(e){var u=o(e);n(u,t)}for(var s=0;s<l.length;s++){var a=l[s];if(0===a.refs){for(var c=0;c<a.parts.length;c++)a.parts[c]();delete p[a.id]}}}};var _=function(){var e=[];return function(t,i){return e[t]=i,e.filter(Boolean).join("\n")}}()},function(e,t,i){var n=i(5);"string"==typeof n&&(n=[[e.id,n,""]]);i(9)(n,{});n.locals&&(e.exports=n.locals)}])});
 
 /***/ }),
 /* 59 */
@@ -31852,13 +31990,13 @@ var content = __webpack_require__(50);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("489bfed1", content, false);
+var update = __webpack_require__(6)("73cbf71a", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-03056284&scoped=true!../../../../node_modules/sass-loader/index.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./buttonTemplate.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-03056284&scoped=true!../../../../node_modules/sass-loader/index.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./buttonTemplate.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-0d151997&scoped=true!../../../../node_modules/sass-loader/index.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./buttonTemplate.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-0d151997&scoped=true!../../../../node_modules/sass-loader/index.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./buttonTemplate.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -31878,13 +32016,13 @@ var content = __webpack_require__(51);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("1b1fdceb", content, false);
+var update = __webpack_require__(6)("be3cf08e", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-76fca633&scoped=true!../../../../node_modules/sass-loader/index.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./timeline.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-76fca633&scoped=true!../../../../node_modules/sass-loader/index.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./timeline.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-4db2b52e&scoped=true!../../../../node_modules/sass-loader/index.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./inputTemplate.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-4db2b52e&scoped=true!../../../../node_modules/sass-loader/index.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./inputTemplate.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -31904,13 +32042,13 @@ var content = __webpack_require__(52);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(6)("db70e144", content, false);
+var update = __webpack_require__(6)("eddc3a52", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-c240a13c&scoped=true!../../../../node_modules/sass-loader/index.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./inputTemplate.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-c240a13c&scoped=true!../../../../node_modules/sass-loader/index.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./inputTemplate.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-cad07068&scoped=true!../../../../node_modules/sass-loader/index.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./timeline.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-cad07068&scoped=true!../../../../node_modules/sass-loader/index.js?indentedSyntax!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./timeline.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });

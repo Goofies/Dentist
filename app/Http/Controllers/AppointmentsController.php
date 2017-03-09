@@ -42,8 +42,8 @@ class AppointmentsController extends Controller
         $appointment = new Appointment();
         $appointment->patient_id = $request->patient_id;
         $appointment->date = $request->date;
-        $appointment->starting_at = Carbon::createFromTimeStamp($request->starting_at/1000, 'Europe/Athens');
-        $appointment->ending_at = Carbon::createFromTimeStamp($request->ending_at/1000, 'Europe/Athens');
+        $appointment->starting_at = Carbon::createFromTimeStamp($request->starting_at/1000, 'Europe/Istanbul');
+        $appointment->ending_at = Carbon::createFromTimeStamp($request->ending_at/1000, 'Europe/Istanbul');
         $appointment->operation_name = $request->operation_name;
         $appointment->save();
         if ($request->note) {
@@ -103,7 +103,11 @@ class AppointmentsController extends Controller
 
     public function get($date)
     {
-        $appointments = Appointment::where('date', "$date")->with('patient')->get();
+        $appointments = Appointment::where('date', "$date")->with(['patient' => function($query){
+            $query->with(['notes' => function($query){
+                $query->orderBy('created_at', 'desc')->first();
+            }]);
+        }])->get();
         return $appointments;
     }
 }

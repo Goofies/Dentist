@@ -9,7 +9,7 @@
 						placeholder="Search Your Patients" 
 						v-model="patients.search" 
 						@keyup="patients.filterPatients()"
-						@keydown="{patients.inputDisplay == true ? patients.display = true : ''}">
+						@keydown="patients.inputDisplay == true ? patients.display = true : ''">
 				</div>
 				<i class="material-icons" @click="patients.showSearch()">&#xE8B6;</i>
 			</div>
