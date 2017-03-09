@@ -395,9 +395,11 @@ import buttonTemplate from '../components/buttonTemplate'
 				justify-content: center
 				align-items: center
 				position: absolute
-				border: 2px solid $t500
+				border-top: 1px solid $t500
+				border-bottom: 1px solid $t500
 				&.timeline-bg
-					border: 2px dashed $t500
+					border-top: 1px dashed $t500
+					border-bottom: 1px dashed $t500
 					left: 0
 					width: 100%
 				.starting-at, .ending-at
