@@ -14,9 +14,12 @@
     "lodash": "^4.16.2",
     "vue": "^2.0.1",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "vue-multiselect": "^2.0.0-beta.13"
   },
   "dependencies": {
+=======
+>>>>>>> f1867fed2f09d804630ab01b7f3813963f7cb0ca
 =======
 >>>>>>> f1867fed2f09d804630ab01b7f3813963f7cb0ca
     "vue-multiselect": "^2.0.0-beta.13"
