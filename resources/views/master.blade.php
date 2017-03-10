@@ -4,7 +4,7 @@
  	<div class="container">
 	 	<div class="row">
 		    <div class="col-md-12">
-		    	<timeline></timeline>
+		    	<timeline :appointments="daily"></timeline>
 		    </div>	    
 		 	<div class="col-md-12">
 		      @yield('content')
@@ -12,4 +12,3 @@
 	    </div>
     </div>
 @include('partials.foot')
-<!-- changes -->

@@ -2,6 +2,10 @@ require('./bootstrap');
 function pad(n){
     return (n<10) ? '0' + n.toString() : n.toString();
 }
+function phpDate(date) {
+    let month = date.getMonth() + 1;
+    return date.getFullYear()+"-"+month+"-"+date.getDate();
+}
 import Form from "./classes/Form";
 import MonthlyView from "./classes/MonthlyView";
 import WeeklyView from "./classes/WeeklyView";
@@ -30,6 +34,7 @@ var calendar = new Vue({
             profile: new PatientProfile(),
             monthly: new MonthlyView(),
             weekly: new WeeklyView(),
+            daily: [],
             appointmentForm: new AppointmentForm(),
             patientForm: new Form({
                 name: 'text',
@@ -66,6 +71,13 @@ var calendar = new Vue({
         }
     },
     methods:{
+        getDailyAppointments(){
+            let now = new Date();
+            now = phpDate(now);
+            axios.get(`appointments/${now}`)
+                .then(response => this.daily = response.data)
+                .catch(error => console.log(error.response.data))
+        },
         displayProfile(patient) {
             this.profile.display(patient);
             this.modals.main.display = true;
@@ -106,6 +118,14 @@ var calendar = new Vue({
                     .catch(message => this.info.danger(message))
             }
         },
+        addPatient() {
+            this.patientForm.post('/patients/store')
+                .then(data => {
+                    this.patients.getPatients();
+                    this.info.success(data);
+                })
+                .catch(errors => console.log(errors))
+        },
         displayModal(date) {
             this.weekly.displayView(date);
             this.weekly.clicked = new Date(date);
@@ -133,14 +153,6 @@ var calendar = new Vue({
                         this.closeAppointmentForm();
                 }
             }
-        },
-        addPatient() {
-            this.patientForm.post('/patients/store')
-                .then(data => {
-                    this.patients.getPatients();
-                    this.info.success(data);
-                })
-                .catch(errors => console.log(errors))
         },
         deletePatient(patient) {
             if(confirm('Are you sure you want to delete?')) {
@@ -226,8 +238,9 @@ var calendar = new Vue({
         }
     },
     mounted(){
-        this.monthly.getView();
+        this.getDailyAppointments();
         this.patients.getPatients();
+        this.monthly.getView();
     },
     created(){
         window.addEventListener('keyup', this.keyHandle)
