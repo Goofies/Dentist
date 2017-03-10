@@ -62,15 +62,17 @@ var calendar = new Vue({
         }
     },
     computed: {
-        //Form Calculation
         appointmentDuration() {
-            let duration = this.appointmentForm.end.getTime() - this.appointmentForm.start.getTime(); // "date".getTime() - "date".getTime()
+            let duration = this.appointmentForm.end.getTime() - this.appointmentForm.start.getTime();
             let durationHour = pad(Math.floor(duration/1000/60/60));
             let durationMinute = pad(duration/1000/60 % 60);
             return durationHour+":"+durationMinute;
         }
     },
     methods:{
+        /*
+        * Daily Things
+        */
         getDailyAppointments(){
             let now = new Date();
             now = phpDate(now);
@@ -78,6 +80,9 @@ var calendar = new Vue({
                 .then(response => this.daily = response.data)
                 .catch(error => console.log(error.response.data))
         },
+        /*
+        * Profile Things
+        */
         displayProfile(patient) {
             this.profile.display(patient);
             this.modals.main.display = true;
@@ -99,13 +104,6 @@ var calendar = new Vue({
                 })
                 .catch((message) => this.info.danger(message))
         },
-        deleteNote(note) {
-            if(confirm('Are you sure you want to delete?')) {
-                this.profile.history.deleteNote(note)
-                    .then(message => this.info.danger(message))
-                    .catch(message => this.info.danger(message))
-            }
-        },
         payIt() {
             this.profile.history.payIt()
                 .then(message => this.info.danger(message))
@@ -118,6 +116,23 @@ var calendar = new Vue({
                     .catch(message => this.info.danger(message))
             }
         },
+        deletePatient(patient) {
+            if(confirm('Are you sure you want to delete?')) {
+                this.profile.deletePatient(patient)
+                    .then(message => this.info.danger(message))
+                    .catch(message => this.info.danger(message))
+            }
+        },
+        deleteNote(note) {
+            if(confirm('Are you sure you want to delete?')) {
+                this.profile.history.deleteNote(note)
+                    .then(message => this.info.danger(message))
+                    .catch(message => this.info.danger(message))
+            }
+        },
+        /*
+        *  Add Patient Things
+        */
         addPatient() {
             this.patientForm.post('/patients/store')
                 .then(data => {
@@ -126,6 +141,9 @@ var calendar = new Vue({
                 })
                 .catch(errors => console.log(errors))
         },
+        /*
+        * Weekly Modal Things
+        */
         displayModal(date) {
             this.weekly.displayView(date);
             this.weekly.clicked = new Date(date);
@@ -133,6 +151,9 @@ var calendar = new Vue({
             this.modals.main.display = true;
             this.modals.main.weekly = true;
         },
+        /*
+        * Appointment Things
+        */
         createAppointmentForm(date, timestart, timeend, dayindex, blockindex, cellindex, appointment) {
             if (appointment != '' && this.modals.appointmentForm.first == false) {
                 this.appointmentForm.editForm(appointment);
@@ -154,13 +175,6 @@ var calendar = new Vue({
                 }
             }
         },
-        deletePatient(patient) {
-            if(confirm('Are you sure you want to delete?')) {
-                this.profile.deletePatient(patient)
-                    .then(message => this.info.danger(message))
-                    .catch(message => this.info.danger(message))
-            }
-        },
         addAppointment(){
             this.appointmentForm.addAppointment()
                 .then(message => {
@@ -169,6 +183,7 @@ var calendar = new Vue({
                     this.weekly.displayView();
                     this.closeAppointmentForm();
                     this.monthly.getView();
+                    this.getDailyAppointments();
                 })
         },
         deleteAppointment(){
@@ -179,6 +194,7 @@ var calendar = new Vue({
                         this.weekly.displayView();
                         this.closeAppointmentForm();
                         this.monthly.getView();
+                        this.getDailyAppointments();
                     })
             }
         },
@@ -189,6 +205,9 @@ var calendar = new Vue({
             this.modals.appointmentForm.edit = false;
             this.appointmentForm.clear();
         },
+        /*
+        * General Things
+        */
         closeModal(){
             if (this.modals.sideModal == true) {
                 this.closeAppointmentForm();
