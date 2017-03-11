@@ -407,8 +407,8 @@ import buttonTemplate from '../components/buttonTemplate'
 					position: absolute
 					left: 0
 					transform: translateX(-50%)
-					height: 10px
-					width: 10px
+					height: 15px
+					width: 15px
 					border-radius: 50%
 					background: $b50
 					border: 3px solid $t500

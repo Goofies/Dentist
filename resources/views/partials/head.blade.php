@@ -12,4 +12,3 @@
     </head>
 
     <body>
-    <div id="calendar" v-cloak>
