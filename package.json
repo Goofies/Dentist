@@ -13,12 +13,6 @@
     "laravel-mix": "^0.5.0",
     "lodash": "^4.16.2",
     "vue": "^2.0.1",
-<<<<<<< HEAD
-=======
-    "vue-multiselect": "^2.0.0-beta.13"
-  },
-  "dependencies": {
->>>>>>> 78d3eb638309c81256b17af369c5b32f6ef9dd9e
     "vue-multiselect": "^2.0.0-beta.13"
   }
 }
