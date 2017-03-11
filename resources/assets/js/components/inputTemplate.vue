@@ -9,6 +9,8 @@
             <!-- Text Input -->
             <input class="form-input" 
                 type="text"
+                :name="data.name"
+                :required="required"
                 v-if="data.type == 'text' || ''"
                 v-model="data.value" 
                 @focus="data.isActive = true"
@@ -17,14 +19,18 @@
             <!-- Number Input -->
             <input class="form-input" 
                 type="number"
+                :name="data.name"
+                :required="required"
                 v-else-if="data.type == 'number'"
-                v-model="data.value" 
+                v-model="data.value"
                 @focus="data.isActive = true"
                 @blur="data.isActive = false"
                 @keydown="data.error = ''" />
             <!-- Password Input -->
             <input class="form-input" 
                 type="password"
+                :name="data.name"
+                :required="required"
                 v-else-if="data.type == 'password'"
                 v-model="data.value" 
                 @focus="data.isActive = true"
@@ -33,13 +39,17 @@
             <!-- Email Input -->
             <input class="form-input" 
                 type="email"
+                :name="data.name"
+                :required="required"
                 v-else-if="data.type == 'email'"
                 v-model="data.value" 
                 @focus="data.isActive = true"
                 @blur="data.isActive = false"
                 @keydown="data.error = ''" />
             <!-- Textarea Input -->
-            <textarea class="form-input" 
+            <textarea class="form-input"
+                :name="data.name"
+                :required="required"
                 v-else-if="data.type == 'textarea'"
                 v-model="data.value" 
                 @focus="data.isActive = true"
@@ -54,7 +64,16 @@
 </template>
 <script>
     export default {
-        props: ['data'],
+        props: {
+            data: {
+                type: Object,
+                required: true
+            },
+            required: {
+                type: Boolean,
+                default: false
+            }
+        },
         filters: {
             capitalize(string) {
                 return string.charAt(0).toUpperCase() + string.slice(1);
