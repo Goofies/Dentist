@@ -9,11 +9,5 @@ Homestead.yaml
 .env
 /public/css
 /public/js
-<<<<<<< HEAD
-/public/css
-/public/js
 /storage
 /app/Http/Controllers/AppointmentsController.php
-=======
-/storage
->>>>>>> f1867fed2f09d804630ab01b7f3813963f7cb0ca
