@@ -180,7 +180,6 @@
 					width: 100%
 		.appointments
 			height: 38vh
-			overflow: hidden
 			position: relative
 			.panel-header
 				display: flex
@@ -197,13 +196,43 @@
 					border: none
 					outline: none
 				.pay-it
-					.material-icons
-						transition: 100ms ease-in-out
-						&:hover
-							cursor: pointer
-							transform: translateY(-2px)
-						&:active
-							transform: translateY(0px)
+					display: flex
+					.pay-group
+						position: relative
+						.material-icons
+							transition: 100ms ease-in-out
+							&:hover
+								cursor: pointer
+								transform: translateY(-2px)
+							&:active
+								transform: translateY(0px)
+						.submit-message
+							position: absolute
+							font-size: 11px
+							z-index: 10
+							border: 1px solid
+							padding: 2px
+							background-color: $t500
+							color: $b50
+							width: 90px
+							display: flex
+							justify-content: center
+							align-items: center
+							bottom: 140%
+							right: 50%
+							transform: translateX(50%)
+							&:after
+								content: ''
+								position: absolute
+								display: block
+								top: 100%
+								width: 0
+								height: 0
+								border-left: 20px solid transparent
+								border-right: 20px solid transparent
+								border-top: 10px solid $t500
+								left: 50%
+								transform: translate(-50%)
 			.panel-body
 				max-height: calc(38vh - 40px)
 				overflow: auto

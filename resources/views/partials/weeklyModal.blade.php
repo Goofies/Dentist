@@ -120,7 +120,10 @@
 								<span class="total">
 									@{{profile.history.getTotal()}}€
 								</span>
-								<i class="material-icons" @click="payIt">&#xE8B0;</i>
+								<div class="pay-group">
+									<i class="material-icons" @click="payIt">&#xE8B0;</i>
+									<span class="submit-message" v-if="profile.history.paymentData.amount">Click to submit</span>
+								</div>
 							</div>
 						</div>
 						<div class="panel-body" v-if="!profile.history.loading.timeLine">
