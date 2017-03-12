@@ -12,6 +12,8 @@
 */
 
 Route::get('/', 'ViewController@index')->name('welcome');
+Auth::routes();
+
 Route::group(['prefix' => 'view', 'as' => 'view.'], function() {
 	Route::post('calendarInfo', 'ViewController@calendarInfo')->name('calendarInfo');
 });
@@ -37,11 +39,3 @@ Route::group(['prefix' => 'payments', 'as' => 'payments.'], function() {
 	Route::post('store', 'PaymentController@store')->name('store');
 	Route::delete('{id}/destroy', 'PaymentController@destroy')->name('destroy');
 });
-Route::group(['prefix' => 'password', 'as' => 'password.'], function() {
-	Route::get('reset', 'PasswordController@showResetForm')->name('showResetForm');
-});
-
-Route::get('/login', 'SessionController@create')->name('login');
-Route::post('/login', 'SessionController@store');
-Route::get('/logout', 'SessionController@destroy');
-Route::resource('user', 'UserController');

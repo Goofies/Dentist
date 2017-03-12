@@ -23,6 +23,11 @@ var signIn = new Vue({
 				password_confirmation: new Input('Confirm Your Password', 'password', 'password_confirmation')
 			},
 			resetPassword:{
+				email: new Input('Email', 'email'),
+				password: new Input('Password', 'password'),
+				password_confirmation: new Input('Confirm Your Password', 'password', 'password_confirmation')
+			},
+			sendEmail:{
 				email: new Input('Email', 'email')
 			}
 		}
